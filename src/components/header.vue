@@ -1,13 +1,20 @@
 <template>
   <div class="header-menu">
-    <a href="#" class="active">Магазин</a>
-    <a href="#">О нас</a>
-    <img
+    <router-link to="/shop" tag="a" active-class="active">Магазин</router-link>
+    <router-link to="/about" tag="a" active-class="active">О нас</router-link>
+    <router-link
+      to="/"
+      tag="img"
       src="https://www.romanticanawear.com/dist/images/d90e4fe0a0e5c48daaee65edefda339b.svg"
       alt="Logo"
-    />
-    <a href="#">Конакты</a>
-    <a href="#">Корзина (0)</a>
+      >Магазин</router-link
+    >
+    <router-link to="/contacts" tag="a" active-class="active"
+      >Конакты</router-link
+    >
+    <router-link to="/cart" tag="a" active-class="active"
+      >Корзина (0)</router-link
+    >
   </div>
 </template>
 
@@ -36,6 +43,9 @@ $activecolor: red;
   .active {
     color: $activecolor;
     border-bottom: 1px solid $activecolor;
+  }
+  img {
+    width: 35%;
   }
 }
 </style>

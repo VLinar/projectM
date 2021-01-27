@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Header />
+    <hr />
     <router-view />
   </div>
 </template>
@@ -28,6 +29,10 @@ export default {
 body {
   margin: 0;
   padding: 0;
+}
+
+hr {
+  width: 80%;
 }
 
 /* #app {
