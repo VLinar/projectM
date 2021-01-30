@@ -1,39 +1,49 @@
 <template>
   <div class="home">
-    <div class="slide-img"></div>
-    <!-- <img
-      src="https://www.romanticanawear.com/assets/37097f60-53fe-11eb-8a62-f5f2e076f6e1_m.jpeg"
-      alt=""
-    /> -->
+    <Slider />
+    <div class="main_text">
+      <h1>
+        Бренд одежды, вдохновлённый этим безумным миром и девичьей силой. Сшито
+        и напечатано вручную.
+      </h1>
+    </div>
   </div>
 </template>
 
 <script>
+import Slider from "@/components/Slider.vue";
 export default {
   name: "Home",
-  components: {}
+  components: {
+    Slider
+  }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .home {
-  display: flex;
-  justify-content: center;
   height: 100%;
-  width: 100%;
+  margin: auto;
+  .main_text {
+    text-align: center;
+
+    width: 40%;
+    margin: auto;
+    margin-top: 60px;
+    h1 {
+      font-weight: 600;
+      font-size: 32px;
+      line-height: 53px;
+      font-family: "Open Sans", Arial, sans-serif;
+      text-transform: none;
+    }
+  }
   .slide-img {
     background-position: 50%;
     background: url("https://www.romanticanawear.com/assets/37097f60-53fe-11eb-8a62-f5f2e076f6e1_m.jpeg")
       center no-repeat;
     height: 780px;
-    width: 100%;
-  }
-  img {
-    width: 90%;
-    max-height: 780px;
-    background-position: 50%;
-    object-fit: cover;
-    object-position: center;
+    width: 100px;
   }
 }
 </style>

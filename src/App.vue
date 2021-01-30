@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header />
-    <hr />
+    <hr v-if="$route.path !== '/'" />
     <router-view />
   </div>
 </template>
@@ -35,24 +35,7 @@ hr {
   width: 80%;
 }
 
-/* #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+.slick-slide div:focus {
+  outline: 0px !important;
 }
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-} */
 </style>
