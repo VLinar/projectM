@@ -1,16 +1,13 @@
 <template>
-  <div class="slider-comp">
+  <div class="slider-comp container">
     <VueSlickCarousel v-bind="settings" ref="corusel">
-      <div
-        v-for="(data, i) in img"
-        :key="i"
-        class="slide-img"
-        :id="`imglist${i}`"
-      ></div>
+      <div v-for="(data, i) in img" :key="i" class="slide-img">
+        <img :src="data" alt="" />
+        <router-link class="slider_button" to="/shop" tag="div"
+          >Магазин</router-link
+        >
+      </div>
     </VueSlickCarousel>
-    <router-link class="slider_button" to="/shop" tag="div"
-      >Магазин</router-link
-    >
   </div>
 </template>
 
@@ -39,37 +36,33 @@ export default {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        infinite: false
+        lazyLoad: "ondemand",
+        infinite: true
       }
     };
-  },
-  mounted() {
-    console.log(this.$refs.corusel);
-    this.addimage();
-  },
-  methods: {
-    addimage() {
-      for (let key in this.img) {
-        document.getElementById(
-          `imglist${key}`
-        ).style.backgroundImage = `url('${this.img[key]} ')`;
-      }
-    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .slider-comp {
-  width: 95vw;
-  margin: auto;
-  margin-bottom: 40px;
-  position: relative;
+  padding: 0 20px;
+  margin-top: 0;
   .slide-img {
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 780px;
+    position: relative;
+    display: flex !important;
+    justify-content: center;
+    height: 70vh;
+    img {
+      height: 780px;
+      width: 100%;
+      max-width: 1640px;
+      object-fit: cover;
+      object-position: center;
+      pointer-events: none;
+    }
   }
+
   .slider_button {
     padding: 15px 40px;
     background: black;

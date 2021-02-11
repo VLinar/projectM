@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <Header />
-    <hr v-if="$route.path !== '/'" />
     <router-view />
   </div>
 </template>
@@ -19,20 +18,19 @@ export default {
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 
+$background: #1d1d1d;
+
 * {
   font-family: "Open Sans";
-  text-transform: uppercase;
-  font-size: 14px;
-  font-weight: 300;
 }
-
+.container {
+  max-width: 1440px;
+  margin: auto;
+  padding: 1rem;
+}
 body {
   margin: 0;
   padding: 0;
-}
-
-hr {
-  width: 80%;
 }
 
 .slick-slide div:focus {
