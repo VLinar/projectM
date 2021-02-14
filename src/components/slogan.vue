@@ -22,8 +22,7 @@ export default {};
 .main_text {
   text-align: center;
   width: 50%;
-  margin: auto;
-  margin-top: 30px;
+  margin: 30px auto;
   padding: 20px;
   h1 {
     font-weight: 600;

@@ -69,7 +69,7 @@ export default {
     color: white;
     width: fit-content;
     position: absolute;
-    left: 10%;
+    left: 5%;
     bottom: 5%;
     text-transform: uppercase;
     letter-spacing: 1px;

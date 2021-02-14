@@ -95,9 +95,9 @@ export default {
       color: black;
       text-transform: uppercase;
       text-decoration: none;
-    }
-    a:hover {
-      color: red;
+      &:hover {
+        color: red;
+      }
     }
     .active {
       color: red;
