@@ -9,7 +9,7 @@
 <script>
 import Slider from "@/components/slider.vue";
 import Slogan from "@/components/slogan.vue";
-import Newprod from "@/components/newproducts.vue";
+import Newprod from "@/components/productsgrid.vue";
 
 export default {
   name: "Home",

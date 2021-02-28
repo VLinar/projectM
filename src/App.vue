@@ -35,6 +35,17 @@ body {
   margin: 0;
   padding: 0;
 }
+a {
+  color: black;
+}
+
+header {
+  a:hover,
+  span:hover,
+  .fa:hover {
+    color: red;
+  }
+}
 
 .slick-slide div:focus {
   outline: 0px !important;

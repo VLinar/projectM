@@ -1,16 +1,24 @@
 <template>
   <footer>
-    <section>
-      <div>
-        <span>1</span>
-        <span>2</span>
-        <span>3</span>
-        <span>4</span>
+    <div class="container">
+      <div class="navigation">
+        <span>Акции</span>
+        <span>О нас</span>
+        <span>Оплата</span>
+        <span>Доставка</span>
+        <span>Обмен и возврат</span>
+        <span>Контакты</span>
+        <div class="sociallinks">
+          <i class="fa fa-vk" aria-hidden="true"></i>
+          <i class="fa fa-telegram" aria-hidden="true"></i>
+          <i class="fa fa-instagram" aria-hidden="true"></i>
+        </div>
       </div>
-      <div>
-        <span>5</span>
+      <div class="bankscard">
+        <i class="fa fa-cc-visa" aria-hidden="true"></i>
+        <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
       </div>
-    </section>
+    </div>
   </footer>
 </template>
 
@@ -20,14 +28,22 @@ export default {};
 
 <style lang="scss" scoped>
 footer {
-  background: #1a1a1a;
-  padding: 50px 0;
-  width: 100%;
-  section {
-    width: 85vw;
-    margin: auto;
+  padding-top: 50px;
+  padding-bottom: 25px;
+  background-color: #f9f9f9;
+  font-size: 14px;
+  color: rgb(163, 163, 163);
+  div {
     display: flex;
+    align-items: center;
+    gap: 1rem;
     justify-content: space-between;
+    .sociallinks {
+      font-size: 24px;
+    }
+    .bankscard {
+      font-size: 45px;
+    }
   }
 }
 </style>
