@@ -9,6 +9,11 @@ export default new VueRouter({
       path: "/",
       name: "Home",
       component: () => import("../views/Home.vue")
+    },
+    {
+      path: "*",
+      name: "404error",
+      component: () => import("../views/404error.vue")
     }
   ],
   mode: "history"
