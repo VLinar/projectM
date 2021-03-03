@@ -2,7 +2,9 @@
   <div class="home">
     <Slider />
     <Slogan />
+    <!-- <div class="container"> -->
     <Newprod />
+    <!-- </div> -->
   </div>
 </template>
 

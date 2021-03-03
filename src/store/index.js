@@ -60,6 +60,94 @@ export default new Vuex.Store({
         maingroup: null,
         url: "shtani"
       }
+    ],
+    products: [
+      {
+        id: 1,
+        image:
+          "https://cdn.b-catalog.ru/bcbucket/public/a/102/2020/8/3/0f25cc7f-e5d9-4922-8a31-feacebe2891d",
+        name: "Product 1",
+        tags: ["NEW"],
+        price: 100
+      },
+      {
+        id: 2,
+        image:
+          "https://cdn.b-catalog.ru/bcbucket/public/a/102/2020/8/3/195b6cc1-0640-48b9-8dd7-79ef5077ffe7",
+        name: "Product 1",
+        tags: ["NEW"],
+        price: 100
+      },
+      {
+        id: 3,
+        image:
+          "https://cdn.b-catalog.ru/bcbucket/public/a/102/2020/8/3/3761d78a-0218-49c0-a7a5-835f5617de4a",
+        name: "Product 1",
+        tags: ["NEW"],
+        price: 100
+      },
+      {
+        id: 4,
+        image:
+          "https://images.wallpaperscraft.ru/image/ulitsa_osveshchenie_podsvetka_134856_1920x1080.jpg",
+        name: "Product 1",
+        tags: ["NEW"],
+        price: 100
+      },
+      {
+        id: 5,
+        image: "",
+        name: "Product 1",
+        tags: ["NEW"],
+        price: 100
+      },
+      {
+        id: 6,
+        image: "",
+        name: "Product 1",
+        tags: ["NEW"],
+        price: 100
+      },
+      {
+        id: 7,
+        image:
+          "https://cdn.b-catalog.ru/bcbucket/public/a/102/2020/8/3/0f25cc7f-e5d9-4922-8a31-feacebe2891d",
+        name: "Product 1",
+        tags: ["NEW"],
+        price: 100
+      },
+      {
+        id: 8,
+        image:
+          "https://cdn.b-catalog.ru/bcbucket/public/a/102/2020/8/3/0f25cc7f-e5d9-4922-8a31-feacebe2891d",
+        name: "Product 1",
+        tags: ["NEW"],
+        price: 100
+      },
+      {
+        id: 9,
+        image:
+          "https://cdn.b-catalog.ru/bcbucket/public/a/102/2020/8/3/0f25cc7f-e5d9-4922-8a31-feacebe2891d",
+        name: "Product 1",
+        tags: ["NEW"],
+        price: 100
+      },
+      {
+        id: 10,
+        image:
+          "https://cdn.b-catalog.ru/bcbucket/public/a/102/2020/8/3/0f25cc7f-e5d9-4922-8a31-feacebe2891d",
+        name: "Product 1",
+        tags: ["NEW"],
+        price: 100
+      },
+      {
+        id: 11,
+        image:
+          "https://cdn.b-catalog.ru/bcbucket/public/a/102/2020/8/3/0f25cc7f-e5d9-4922-8a31-feacebe2891d",
+        name: "Product 1",
+        tags: ["NEW"],
+        price: 100
+      }
     ]
   },
   mutations: {},

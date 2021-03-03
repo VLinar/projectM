@@ -14,6 +14,11 @@ export default new VueRouter({
       path: "*",
       name: "404error",
       component: () => import("../views/404error.vue")
+    },
+    {
+      path: "/:categories",
+      name: "products",
+      component: () => import("../views/products.vue")
     }
   ],
   mode: "history"

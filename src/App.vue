@@ -27,7 +27,7 @@ $background: #1d1d1d;
   font-family: "Open Sans";
 }
 .container {
-  max-width: 1440px;
+  max-width: 1260px;
   margin: auto;
   padding: 1rem;
 }
