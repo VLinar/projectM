@@ -1,10 +1,12 @@
 <template>
   <div>
-    <router-link tag="h4" :to="item.url">{{ item.name }}</router-link>
+    <router-link tag="h4" :to="`/categories/${item.url}`">{{
+      item.name
+    }}</router-link>
 
     <div v-if="getsubcategory(item.id).length > 0" class="subgroup">
       <router-link
-        :to="i.url"
+        :to="`/categories/${i.url}`"
         v-for="i in getsubcategory(item.id)"
         :key="i.id"
         tag="span"

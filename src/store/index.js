@@ -165,6 +165,11 @@ export default new Vuex.Store({
       return id
         ? state.category.filter(category => category.maingroup === id)
         : [];
+    },
+    sheckgroup: state => grouproute => {
+      return state.category.find(category => category.url === grouproute)
+        ? true
+        : false;
     }
   }
 });

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="check">
     <div class="products_header">
       <div>Главная / Штаны</div>
       <div>3 иконки</div>
@@ -10,9 +10,34 @@
 
 <script>
 import Productsgrid from "@/components/productsgrid.vue";
+import { mapGetters } from "vuex";
 export default {
   components: {
     Productsgrid
+  },
+  data() {
+    return {
+      check: false
+    };
+  },
+  computed: {
+    ...mapGetters(["sheckgroup"])
+  },
+  created() {
+    this.checkcategories();
+  },
+  methods: {
+    checkcategories() {
+      if (this.sheckgroup(this.$route.params.categories) === false) {
+        let parameters = this.$route.path;
+        this.$router.push({
+          name: "404error",
+          params: { pathMatch: parameters }
+        });
+      } else {
+        this.check = true;
+      }
+    }
   }
 };
 </script>

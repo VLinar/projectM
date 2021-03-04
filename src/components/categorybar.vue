@@ -10,7 +10,7 @@
             @mouseover.native="activegroup = item.id"
             :class="activegroup === item.id ? 'active' : ''"
             tag="h4"
-            :to="item.url"
+            :to="`/categories/${item.url}`"
           >
             {{ item.name }}
           </router-link>

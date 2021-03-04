@@ -16,7 +16,7 @@ export default new VueRouter({
       component: () => import("../views/404error.vue")
     },
     {
-      path: "/:categories",
+      path: "/categories/:categories",
       name: "products",
       component: () => import("../views/products.vue")
     }

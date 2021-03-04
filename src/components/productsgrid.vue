@@ -1,17 +1,15 @@
 <template>
-  <div class="container">
-    <div class="newprodgrid">
-      <div v-for="item in products" :key="item.id" class="product_card">
-        <img
-          :src="item.image ? item.image : emtyimage"
-          alt="Изображение товара"
-        />
-        <div class="card_text">
-          <h4>{{ item.name }}</h4>
-          <div>
-            <span>{{ item.price }}₽</span>
-            <i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i>
-          </div>
+  <div class="newprodgrid">
+    <div v-for="item in products" :key="item.id" class="product_card">
+      <img
+        :src="item.image ? item.image : emtyimage"
+        alt="Изображение товара"
+      />
+      <div class="card_text">
+        <h4>{{ item.name }}</h4>
+        <div>
+          <span>{{ item.price }}₽</span>
+          <i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i>
         </div>
       </div>
     </div>
@@ -23,7 +21,6 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      // products: [],
       emtyimage: "https://biolik.com.ua/wp-content/uploads/2019/12/NOFoto.png"
     };
   },
