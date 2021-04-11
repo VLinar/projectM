@@ -1,21 +1,39 @@
 <template>
   <form>
-    <h1>Авторизация</h1>
-    <input type="text" placeholder="Логин" v-model="login" />
-    <input type="password" placeholder="Пароль" v-model="pass" />
-    <input type="button" value="Войти" @click="test()" />
-    <div>
-      Вы еще не зарегистрированы?
-      <span @click="regmodalopen()"> Зарегистрироваться</span>
+    <input
+      type="text"
+      placeholder="Логин"
+      v-model.trim="$v.login.$model"
+      :class="$v.login.$dirty && $v.login.$error ? 'invalid' : ''"
+    />
+    <div class="error" v-if="!$v.login.required && $v.login.$dirty">
+      Обязательное поле
     </div>
-    {{ pass }}
-    <i class="fa fa-close fa-2x" @click="testclose()"></i>
+    <div class="error" v-if="!$v.login.email && $v.login.$dirty">
+      Некорректный email адрес
+    </div>
+
+    <input
+      type="password"
+      placeholder="Пароль"
+      v-model="$v.pass.$model"
+      :class="$v.pass.$dirty && $v.pass.$error ? 'invalid' : ''"
+    />
+    <div class="error" v-if="!$v.pass.minLength && $v.pass.$dirty">
+      Пароль не должен быть менее 6 символов
+    </div>
+    <div class="error" v-if="!$v.pass.required && $v.pass.$dirty">
+      Обязательное поле
+    </div>
+
+    <input type="button" value="Войти" @click="test()" />
+    <span>Забыли пароль?</span>
   </form>
 </template>
 
 <script>
 import { mapActions } from "vuex";
-// import { required, email, minLength } from "vuelidate/lib/validators";
+import { required, email, minLength } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
@@ -23,24 +41,26 @@ export default {
       pass: ""
     };
   },
+  validations: {
+    login: {
+      required,
+      email
+    },
+    pass: {
+      required,
+      minLength: minLength(6)
+    }
+  },
   methods: {
     ...mapActions(["checkauth"]),
     async test() {
-      let payload = {
+      let auth = await this.checkauth({
         login: this.login,
         pass: this.pass
-      };
-      let auth = await this.checkauth(payload);
+      });
       if (auth === true) {
-        this.$emit("close");
         this.$router.push("/about");
       }
-    },
-    testclose() {
-      this.$emit("close");
-    },
-    regmodalopen() {
-      this.$emit("switchreg");
     }
   }
 };
@@ -51,20 +71,23 @@ form {
   display: flex;
   flex-direction: column;
   padding: 25px;
-  border-radius: 5px;
-  background: white;
+
   position: relative;
   z-index: 1;
-  h1 {
-    text-align: center;
-    margin: 0;
-    padding-bottom: 30px;
+  .invalid {
+    border-bottom: 1px solid red;
+  }
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 10px;
   }
   input {
     padding: 10px;
     margin-bottom: 10px;
     border: 0px;
-    background: #f1f1f1;
+    // background: #f1f1f1;
+    border-bottom: 1px solid silver;
     outline: none;
   }
   input[type="button"] {
@@ -73,12 +96,9 @@ form {
     cursor: pointer;
   }
   span {
+    text-align: center;
     cursor: pointer;
-  }
-  i {
-    position: absolute;
-    right: 15px;
-    top: 5px;
+    font-size: 12px;
   }
 }
 </style>

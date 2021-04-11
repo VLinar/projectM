@@ -18,10 +18,10 @@ export default {
   },
   created() {
     this.getapptoken();
-    setTimeout(() => {
-      this.getgroups();
-      this.getmainpageproduct();
-    }, 500);
+    // setTimeout(() => {
+    //   this.getgroups();
+    //   this.getmainpageproduct();
+    // }, 500);
   },
   methods: {
     ...mapActions(["getapptoken", "getgroups", "getmainpageproduct"])

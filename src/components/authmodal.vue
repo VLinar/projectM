@@ -1,11 +1,25 @@
 <template>
-  <div class="form">
-    <Login
-      @close="test()"
-      v-if="!switchmodal"
-      @switchreg="switchmodal = !switchmodal"
-    />
-    <Reg @close="test()" v-else />
+  <div class="modalform">
+    <div class="form">
+      <div class="switchbtn">
+        <div
+          :class="!switchmodal ? 'activebutton' : ''"
+          @click="switchmodal = false"
+        >
+          Войти
+        </div>
+        <div
+          :class="switchmodal ? 'activebutton' : ''"
+          @click="switchmodal = true"
+        >
+          Создать профиль
+        </div>
+      </div>
+      <Login v-if="!switchmodal" />
+      <Reg @close="test()" v-else />
+      <i class="fa fa-close fa-2x" @click="closemodalwindow()"></i>
+    </div>
+
     <div class="background"></div>
   </div>
 </template>
@@ -24,15 +38,16 @@ export default {
     Reg
   },
   methods: {
-    test() {
-      this.$emit("auth");
+    closemodalwindow() {
+      document.body.style.overflow = "scroll";
+      this.$emit("closemodalwindow");
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.form {
+.modalform {
   position: fixed;
   height: 100vh;
   width: 100vw;
@@ -42,9 +57,39 @@ export default {
   left: 0;
   top: 0;
   z-index: 1;
-  //   .authform {
-
-  //   }
+  .form {
+    background: white;
+    border-radius: 5px;
+    position: relative;
+    i {
+      position: absolute;
+      top: 0;
+      right: 5px;
+      cursor: pointer;
+    }
+  }
+  .switchbtn {
+    display: flex;
+    padding: 40px;
+    // padding-bottom: 40px;
+    border-bottom: 1px solid silver;
+    div {
+      margin: 0px 10px;
+      padding: 5px;
+      border-bottom: 1px solid white;
+      cursor: pointer;
+    }
+    div:hover {
+      border-bottom: 1px solid silver;
+    }
+    .activebutton {
+      color: red;
+      border-bottom: 1px solid red;
+    }
+    .activebutton:hover {
+      border-bottom: 1px solid red;
+    }
+  }
   .background {
     position: absolute;
     top: 0%;

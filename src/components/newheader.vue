@@ -57,14 +57,14 @@
         <i
           class="fa fa-user-o"
           aria-hidden="true"
-          @click="auth = !auth"
-          @closemodal="auth = !auth"
+          @click="authmodalopen"
+          @closemodal="modalauth = !modalauth"
         ></i>
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
       </div>
     </div>
     <transition name="category">
-      <Authmodal v-if="auth" @auth="auth = !auth" />
+      <Authmodal v-if="modalauth" @closemodalwindow="modalauth = !modalauth" />
     </transition>
     <transition name="category">
       <Category
@@ -84,7 +84,7 @@ export default {
     return {
       categorybar: false,
       blacktheme: false,
-      auth: false
+      modalauth: false
     };
   },
   watch: {
@@ -95,6 +95,12 @@ export default {
   components: {
     Category,
     Authmodal
+  },
+  methods: {
+    authmodalopen() {
+      document.body.style.overflow = "hidden";
+      this.modalauth = !this.modalauth;
+    }
   }
 };
 </script>

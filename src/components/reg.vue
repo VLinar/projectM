@@ -1,13 +1,10 @@
 <template>
   <form>
-    <h1>Регистрация</h1>
     <input type="text" placeholder="Фамилия" />
     <input type="text" placeholder="Имя" />
     <input type="text" placeholder="Логин" v-model="login" />
     <input type="password" placeholder="Пароль" v-model="pass" />
     <input type="button" value="Зарегистрироваться" @click="routeform" />
-
-    <i class="fa fa-close fa-2x" @click="testclose()"></i>
   </form>
 </template>
 
