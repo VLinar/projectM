@@ -35,13 +35,6 @@
 import { mapGetters } from "vuex";
 import SubCategories from "@/components/subcategories.vue";
 export default {
-  props: {
-    categorybar: {
-      type: Boolean,
-      required: true,
-      default: false
-    }
-  },
   components: {
     SubCategories
   },
@@ -51,7 +44,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getmaincategory", "getcategoryname", "getsubcategory"])
+    ...mapGetters(["getmaincategory", "getsubcategory"])
   },
   methods: {}
 };

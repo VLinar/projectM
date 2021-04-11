@@ -2,7 +2,7 @@
   <div class="newprodgrid">
     <div v-for="item in products" :key="item.id" class="product_card">
       <img
-        :src="item.image ? item.image : emtyimage"
+        :src="item.images.length > 0 ? item.images.url : emtyimage"
         alt="Изображение товара"
       />
       <div class="card_text">

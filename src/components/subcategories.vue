@@ -25,7 +25,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getcategoryname", "getsubcategory"])
+    ...mapGetters(["getsubcategory"])
   }
 };
 </script>

@@ -54,14 +54,21 @@
           v-else
           @click="blacktheme = !blacktheme"
         ></i>
-        <i class="fa fa-user-o" aria-hidden="true"></i>
+        <i
+          class="fa fa-user-o"
+          aria-hidden="true"
+          @click="auth = !auth"
+          @closemodal="auth = !auth"
+        ></i>
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
       </div>
     </div>
     <transition name="category">
+      <Authmodal v-if="auth" @auth="auth = !auth" />
+    </transition>
+    <transition name="category">
       <Category
         v-if="categorybar"
-        :categorybar="categorybar"
         @closecategorybar="categorybar = !categorybar"
       />
     </transition>
@@ -70,11 +77,14 @@
 
 <script>
 import Category from "@/components/categorybar.vue";
+import Authmodal from "@/components/authmodal.vue";
+
 export default {
   data() {
     return {
       categorybar: false,
-      blacktheme: false
+      blacktheme: false,
+      auth: false
     };
   },
   watch: {
@@ -83,7 +93,8 @@ export default {
     }
   },
   components: {
-    Category
+    Category,
+    Authmodal
   }
 };
 </script>
