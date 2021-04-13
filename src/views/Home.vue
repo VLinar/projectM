@@ -3,7 +3,7 @@
     <Slider />
     <Slogan />
     <div class="container">
-      <Newprod />
+      <Newprod :limit="8" />
     </div>
   </div>
 </template>

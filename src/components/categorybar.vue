@@ -3,7 +3,8 @@
     <div class="category_bar">
       <div class="category_column">
         <h2 @click="activegroup = null">Категории</h2>
-        <div class="category">
+        <Spinner v-if="loading" />
+        <div class="category" v-else>
           <router-link
             v-for="item in getmaincategory"
             :key="item.id"
@@ -32,21 +33,29 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import SubCategories from "@/components/subcategories.vue";
+import Spinner from "@/components/loadspinner.vue";
 export default {
   components: {
-    SubCategories
+    SubCategories,
+    Spinner
   },
   data() {
     return {
-      activegroup: null
+      activegroup: null,
+      loading: true
     };
+  },
+  async mounted() {
+    this.loading = await this.getgroups();
   },
   computed: {
     ...mapGetters(["getmaincategory", "getsubcategory"])
   },
-  methods: {}
+  methods: {
+    ...mapActions(["getgroups"])
+  }
 };
 </script>
 

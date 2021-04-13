@@ -1,22 +1,23 @@
 <template>
   <div class="modalform">
     <div class="form">
-      <div class="switchbtn">
+      <div class="switchbtn" v-if="switchmodal !== 3">
         <div
-          :class="!switchmodal ? 'activebutton' : ''"
-          @click="switchmodal = false"
+          :class="switchmodal === 1 ? 'activebutton' : ''"
+          @click="switchmodal = 1"
         >
           Войти
         </div>
         <div
-          :class="switchmodal ? 'activebutton' : ''"
-          @click="switchmodal = true"
+          :class="switchmodal === 2 ? 'activebutton' : ''"
+          @click="switchmodal = 2"
         >
           Создать профиль
         </div>
       </div>
-      <Login v-if="!switchmodal" />
-      <Reg @close="test()" v-else />
+      <Login v-if="switchmodal === 1" />
+      <Reg v-else-if="switchmodal === 2" @swithmessage="regmessage" />
+      <MesModal v-else :msg="message" />
       <i class="fa fa-close fa-2x" @click="closemodalwindow()"></i>
     </div>
 
@@ -27,20 +28,34 @@
 <script>
 import Login from "@/components/login.vue";
 import Reg from "@/components/reg.vue";
+import MesModal from "@/components/msgmodal.vue";
 export default {
   data() {
     return {
-      switchmodal: false
+      switchmodal: 1,
+      message: ""
     };
   },
   components: {
     Login,
-    Reg
+    Reg,
+    MesModal
   },
   methods: {
     closemodalwindow() {
       document.body.style.overflow = "scroll";
       this.$emit("closemodalwindow");
+    },
+    regmessage(msg) {
+      if (msg.status === "success") {
+        this.message = `На почту ${msg.msg[0]} отправлено письмо`;
+        this.switchmodal = 3;
+        setTimeout(() => {
+          this.$emit("closemodalwindow");
+        }, 1500);
+      } else {
+        return;
+      }
     }
   }
 };

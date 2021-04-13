@@ -4,6 +4,7 @@
       type="text"
       placeholder="Логин"
       v-model.trim="$v.login.$model"
+      @focus="errlog = ''"
       :class="$v.login.$dirty && $v.login.$error ? 'invalid' : ''"
     />
     <div class="error" v-if="!$v.login.required && $v.login.$dirty">
@@ -17,6 +18,7 @@
       type="password"
       placeholder="Пароль"
       v-model="$v.pass.$model"
+      @focus="errlog = ''"
       :class="$v.pass.$dirty && $v.pass.$error ? 'invalid' : ''"
     />
     <div class="error" v-if="!$v.pass.minLength && $v.pass.$dirty">
@@ -25,8 +27,8 @@
     <div class="error" v-if="!$v.pass.required && $v.pass.$dirty">
       Обязательное поле
     </div>
-
-    <input type="button" value="Войти" @click="test()" />
+    <div class="error autherr" v-html="errlog"></div>
+    <input type="button" value="Войти" @click="signin()" />
     <span>Забыли пароль?</span>
   </form>
 </template>
@@ -38,7 +40,8 @@ export default {
   data() {
     return {
       login: "",
-      pass: ""
+      pass: "",
+      errlog: ""
     };
   },
   validations: {
@@ -53,14 +56,15 @@ export default {
   },
   methods: {
     ...mapActions(["checkauth"]),
-    async test() {
+    async signin() {
       let auth = await this.checkauth({
         login: this.login,
         pass: this.pass
       });
-      if (auth === true) {
-        this.$router.push("/about");
-      }
+      auth === true
+        ? this.$router.push("/about")
+        : (this.errlog =
+            "Не верные данные авторизации.<br> Проверьте введенные данные");
     }
   }
 };
@@ -82,16 +86,20 @@ form {
     font-size: 12px;
     margin-bottom: 10px;
   }
+  .autherr {
+    font-size: 15px;
+    text-align: center;
+  }
   input {
     padding: 10px;
     margin-bottom: 10px;
     border: 0px;
-    // background: #f1f1f1;
+
     border-bottom: 1px solid silver;
     outline: none;
   }
   input[type="button"] {
-    background: #2ec32e;
+    background: red;
     color: white;
     cursor: pointer;
   }
