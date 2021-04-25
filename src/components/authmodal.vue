@@ -15,7 +15,7 @@
           Создать профиль
         </div>
       </div>
-      <Login v-if="switchmodal === 1" />
+      <Login v-if="switchmodal === 1" @closelogin="closemodalwindow()" />
       <Reg v-else-if="switchmodal === 2" @swithmessage="regmessage" />
       <MesModal v-else :msg="message" />
       <i class="fa fa-close fa-2x" @click="closemodalwindow()"></i>

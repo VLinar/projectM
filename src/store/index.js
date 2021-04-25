@@ -59,6 +59,7 @@ export default new Vuex.Store({
           password: payload.pass
         })
         .then(res => {
+          document.cookie = `refresh_token=${res.data.refreshtoken}`;
           commit("senduserauth", res.data);
           return true;
         })

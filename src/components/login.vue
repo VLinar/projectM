@@ -62,9 +62,13 @@ export default {
         pass: this.pass
       });
       auth === true
-        ? this.$router.push("/about")
+        ? this.accesslogin()
         : (this.errlog =
             "Не верные данные авторизации.<br> Проверьте введенные данные");
+    },
+    accesslogin() {
+      this.$emit("closelogin");
+      // this.$router.push("/about");
     }
   }
 };
