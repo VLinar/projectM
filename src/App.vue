@@ -9,11 +9,38 @@
 <script>
 import Header from "@/components/newheader.vue";
 import Footer from "@/components/footer.vue";
+import { mapActions } from "vuex";
 
 export default {
   components: {
     Header,
     Footer
+  },
+  created() {
+    this.getCookie("refresh_token")
+      ? this.updaterefresh(this.getCookie("refresh_token"))
+      : this.guestreg({
+          lastname: "Гостевой",
+          firstname: "Аккаунт",
+          email: "guesttest@mailforspam.com",
+          password: "0000",
+          roleId: 1
+        });
+  },
+  methods: {
+    ...mapActions(["updaterefresh", "guestreg"]),
+    getCookie(name) {
+      /* eslint-disable */
+      let matches = document.cookie.match(
+        new RegExp(
+          `(?:^|; )${name.replace(
+            /([\.$?*|{}\(\)\[\]\\\/\+^])/g,
+            "\\$1"
+          )}=([^;]*)`
+        )
+      );
+      return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
   }
 };
 </script>
@@ -49,5 +76,8 @@ header {
 
 .slick-slide div:focus {
   outline: 0px !important;
+}
+.fa-user {
+  font-size: 22.5px;
 }
 </style>

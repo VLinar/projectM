@@ -19,6 +19,23 @@ export default new VueRouter({
       path: "/categories/:categories",
       name: "products",
       component: () => import("../views/products.vue")
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: () => import("../views/profile"),
+      children: [
+        {
+          path: "",
+          name: "myprofile",
+          component: () => import("../views/myprofile")
+        },
+        {
+          path: "myorders",
+          name: "myorders",
+          component: () => import("../views/myorders")
+        }
+      ]
     }
   ],
   mode: "history"

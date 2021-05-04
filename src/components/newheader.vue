@@ -59,7 +59,23 @@
           aria-hidden="true"
           @click="authmodalopen"
           @closemodal="modalauth = !modalauth"
+          v-if="!getuserrole || getuserrole === 1"
         ></i>
+        <i
+          class="fa fa-user usermenu"
+          aria-hidden="true"
+          v-if="getuserrole && getuserrole !== 1"
+          @mouseenter="usermenu = true"
+          @mouseleave="usermenu = false"
+        >
+          <div v-if="usermenu">
+            <router-link to="/profile/myorders" tag="span"
+              >Мои заказы</router-link
+            >
+            <router-link to="/profile" tag="span">Профиль</router-link>
+            <span @click="logout">Выйти</span>
+          </div>
+        </i>
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
       </div>
     </div>
@@ -78,13 +94,15 @@
 <script>
 import Category from "@/components/categorybar.vue";
 import Authmodal from "@/components/authmodal.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   data() {
     return {
       categorybar: false,
       blacktheme: false,
-      modalauth: false
+      modalauth: false,
+      usermenu: false
     };
   },
   watch: {
@@ -97,10 +115,23 @@ export default {
     Authmodal
   },
   methods: {
+    ...mapActions(["userexit", "guestreg"]),
     authmodalopen() {
       document.body.style.overflow = "hidden";
       this.modalauth = !this.modalauth;
+    },
+    logout() {
+      this.guestreg({
+        lastname: "Гостевой",
+        firstname: "Аккаунт",
+        email: "guesttest@mailforspam.com",
+        password: "0000",
+        roleId: 1
+      });
     }
+  },
+  computed: {
+    ...mapGetters(["getuserrole"])
   }
 };
 </script>
@@ -166,6 +197,32 @@ export default {
     display: flex;
     gap: 1rem;
     font-size: 20px;
+    .usermenu {
+      position: relative;
+      div {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        z-index: 1;
+        background: white;
+        right: 0;
+        top: 23px;
+        font-size: 16px;
+        padding: 10px;
+        width: max-content;
+        border-radius: 5px;
+        box-shadow: 4px 5px 20px 0px #0000006b;
+        span {
+          padding: 2.5px 0px;
+        }
+      }
+      div:hover {
+        color: black;
+      }
+    }
+    .usermenu:hover div {
+      color: black;
+    }
   }
 }
 

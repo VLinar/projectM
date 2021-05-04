@@ -1,15 +1,30 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 Vue.use(Vuex);
+
+const getUserApiontoken = async token => {
+  let user = jwt_decode(token);
+
+  return await axios
+    .get(`http://localhost:3012/users/${user.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(resp => resp.data)
+    .catch(err => console.log(err));
+};
 
 export default new Vuex.Store({
   state: {
     category: [],
     products: [],
     authuser: {},
-    basket: []
+    basket: [],
+    token: ""
   },
   mutations: {
     sendgroups(state, value) {
@@ -20,6 +35,9 @@ export default new Vuex.Store({
     },
     senduserauth(state, value) {
       state.authuser = value;
+    },
+    sendtoken(state, value) {
+      state.token = value;
     },
     reg(state, value) {
       state.authuser = value;
@@ -58,9 +76,11 @@ export default new Vuex.Store({
           login: payload.login,
           password: payload.pass
         })
-        .then(res => {
+        .then(async res => {
           document.cookie = `refresh_token=${res.data.refreshtoken}`;
-          commit("senduserauth", res.data);
+          commit("sendtoken", res.data.token);
+
+          commit("senduserauth", await getUserApiontoken(res.data.token));
           return true;
         })
         .catch(err => {
@@ -68,14 +88,44 @@ export default new Vuex.Store({
           return err.name;
         });
     },
+    updaterefresh({ commit }, payload) {
+      axios
+        .post("http://localhost:3012/refreshtoken", {
+          refreshtoken: payload
+        })
+        .then(async res => {
+          document.cookie = `refresh_token=${res.data.refreshtoken}`;
+          commit("sendtoken", res.data.token);
+          commit("senduserauth", await getUserApiontoken(res.data.token));
+        })
+        .catch(err => console.log(err));
+    },
     registration({ commit }, payload) {
       return axios
         .post("http://localhost:3012/reg", payload)
-        .then(res => {
-          commit("senduserauth", res.data);
+        .then(async res => {
+          document.cookie = `refresh_token=${res.data.refreshtoken}`;
+          commit("sendtoken", res.data.token);
+          commit("senduserauth", await getUserApiontoken(res.data.token));
           return res.data;
         })
         .catch(err => err);
+    },
+    guestreg({ commit }, payload) {
+      axios
+        .post("http://localhost:3012/guest", payload)
+        .then(async res => {
+          document.cookie = `refresh_token=${res.data.refreshtoken}`;
+          commit("sendtoken", res.data.token);
+          commit("senduserauth", await getUserApiontoken(res.data.token));
+          return res.data;
+        })
+        .catch(err => err);
+    },
+    userexit({ commit }) {
+      document.cookie = "refresh_token=1; max-age = -1";
+      commit("sendtoken", "");
+      commit("senduserauth", {});
     }
   },
   getters: {
@@ -106,6 +156,9 @@ export default new Vuex.Store({
       }
 
       return mass.reverse();
+    },
+    getuserrole: state => {
+      return state.authuser.roleId;
     }
   }
 });

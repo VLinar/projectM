@@ -28,7 +28,12 @@
       Обязательное поле
     </div>
     <div class="error autherr" v-html="errlog"></div>
-    <input type="button" value="Войти" @click="signin()" />
+    <input
+      type="button"
+      value="Войти"
+      @click="signin()"
+      :disabled="$v.pass.minLength && !$v.login.$error ? false : true"
+    />
     <span>Забыли пароль?</span>
   </form>
 </template>

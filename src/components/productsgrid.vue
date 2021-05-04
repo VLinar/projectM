@@ -10,7 +10,7 @@
         <div class="card_text">
           <h4>{{ item.name }}</h4>
           <div>
-            <span>{{ item.price }}₽</span>
+            <span>{{ item.price }} ₽/шт</span>
             <i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i>
           </div>
         </div>
