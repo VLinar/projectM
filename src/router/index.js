@@ -26,7 +26,7 @@ export default new VueRouter({
       component: () => import("../views/profile"),
       children: [
         {
-          path: "",
+          path: "/",
           name: "myprofile",
           component: () => import("../views/myprofile")
         },
@@ -36,6 +36,11 @@ export default new VueRouter({
           component: () => import("../views/myorders")
         }
       ]
+    },
+    {
+      path: "/product/:id",
+      name: "product",
+      component: () => import("../views/product")
     }
   ],
   mode: "history"

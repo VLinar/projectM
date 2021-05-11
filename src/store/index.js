@@ -22,6 +22,7 @@ export default new Vuex.Store({
   state: {
     category: [],
     products: [],
+    oneproduct: {},
     authuser: {},
     basket: [],
     token: ""
@@ -33,7 +34,13 @@ export default new Vuex.Store({
     sendproducts(state, value) {
       state.products = value;
     },
+    sendproduct(state, value) {
+      state.oneproduct = value;
+    },
     senduserauth(state, value) {
+      state.authuser = value;
+    },
+    updateuserauth(state, value) {
       state.authuser = value;
     },
     sendtoken(state, value) {
@@ -126,6 +133,30 @@ export default new Vuex.Store({
       document.cookie = "refresh_token=1; max-age = -1";
       commit("sendtoken", "");
       commit("senduserauth", {});
+    },
+    updateuser({ commit }, payload) {
+      return axios
+        .put(`http://localhost:3012/users/${this.state.authuser.id}`, payload, {
+          headers: {
+            Authorization: `Bearer ${this.state.token}`
+          }
+        })
+        .then(res => {
+          commit("updateuserauth", res.data.result);
+        })
+        .catch(error => error.response.status);
+    },
+    getoneproduct({ commit }, payload) {
+      return axios
+        .get(`http://localhost:3012/products/${payload}`)
+        .then(res => {
+          commit("sendproduct", res.data.result);
+          return false;
+        })
+        .catch(err => {
+          console.log(err);
+          return true;
+        });
     }
   },
   getters: {

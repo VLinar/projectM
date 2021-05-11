@@ -2,7 +2,13 @@
   <div>
     <Spinner v-if="loading" />
     <div class="newprodgrid" v-else>
-      <div v-for="item in products" :key="item.id" class="product_card">
+      <router-link
+        class="product_card"
+        tag="div"
+        v-for="item in products"
+        :key="item.id"
+        :to="`/product/${item.id}`"
+      >
         <img
           :src="item.images.length > 0 ? item.images.url : emtyimage"
           alt="Изображение товара"
@@ -14,7 +20,7 @@
             <i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i>
           </div>
         </div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
