@@ -6,10 +6,13 @@
       :prodname="oneproduct[0].name"
       v-else
     />
-    <Productheader :image="oneproduct[0].image" />
-    <pre>
-        {{ oneproduct }}
-    </pre>
+    <Productheader :image="oneproduct[0].images" :productinfo="oneproduct[0]" />
+    <hr />
+    <Productfooter
+      :description="oneproduct[0].description"
+      :paramsvalue="oneproduct[0].paramsvalue"
+    />
+    <br />
     <h2>Похожие товары</h2>
     <div class="container">
       <Newprod :limit="4" />
@@ -22,7 +25,7 @@ import Spinner from "@/components/loadspinner.vue";
 import Breadcrumbs from "@/components/breadcrumbs";
 import Newprod from "@/components/productsgrid.vue";
 import Productheader from "@/components/productheader.vue";
-
+import Productfooter from "@/components/productfooter.vue";
 import { mapActions, mapState } from "vuex";
 export default {
   data() {
@@ -34,7 +37,8 @@ export default {
     Spinner,
     Breadcrumbs,
     Newprod,
-    Productheader
+    Productheader,
+    Productfooter
   },
   async created() {
     this.getgroups();
