@@ -14,7 +14,7 @@
         <router-link tag="a" active-class="active" to="/shares"
           >Акции</router-link
         >
-        <router-link tag="a" active-class="active" to="/info"
+        <router-link tag="a" active-class="active" to="/info" exact
           >О нас</router-link
         >
         <router-link tag="a" active-class="active" to="/info/payment"

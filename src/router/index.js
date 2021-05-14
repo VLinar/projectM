@@ -59,72 +59,7 @@ export default new VueRouter({
         }
       ]
     },
-    {
-      path: "/info/payment",
-      name: "payment",
-      component: () => import("../views/payment"),
-      children: [
-        {
-          path: "about",
-          name: "about",
-          component: () => import("../views/about")
-        },
-        {
-          path: "delivery",
-          name: "delivery",
-          component: () => import("../views/delivery")
-        },
-        {
-          path: "contacts",
-          name: "contacts",
-          component: () => import("../views/contacts")
-        }
-      ]
-    },
-    {
-      path: "/info/delivery",
-      name: "delivery",
-      component: () => import("../views/delivery"),
-      children: [
-        {
-          path: "about",
-          name: "about",
-          component: () => import("../views/about")
-        },
-        {
-          path: "payment",
-          name: "payment",
-          component: () => import("../views/payment")
-        },
-        {
-          path: "contacts",
-          name: "contacts",
-          component: () => import("../views/contacts")
-        }
-      ]
-    },
-    {
-      path: "/info/contacts",
-      name: "contacts",
-      component: () => import("../views/contacts"),
-      children: [
-        {
-          path: "about",
-          name: "about",
-          component: () => import("../views/about")
-        },
-        {
-          path: "delivery",
-          name: "delivery",
-          component: () => import("../views/delivery")
-        },
-        {
-          path: "payment",
-          name: "payment",
-          component: () => import("../views/payment")
-        }
-      ]
-    },
+
     {
       path: "/product/:id",
       name: "product",
