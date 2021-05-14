@@ -79,7 +79,7 @@ export default {
       pass: "",
       address: "",
       phone: "",
-      errlog: "",
+      errlog: ""
     };
   },
   methods: {

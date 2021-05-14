@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "../store/index";
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,7 @@ export default new VueRouter({
       path: "/profile",
       name: "profile",
       component: () => import("../views/profile"),
+      meta: { requiresAuth: true },
       children: [
         {
           path: "/",
@@ -35,7 +37,22 @@ export default new VueRouter({
           name: "myorders",
           component: () => import("../views/myorders")
         }
-      ]
+      ],
+      beforeEnter: (to, from, next) => {
+        console.log(store.state.authuser.roleId);
+        if (to.matched.some(record => record.meta.requiresAuth)) {
+          if (store.state.authuser.roleId === 2) {
+            next();
+          } else {
+            alert("Вы не авторизованы");
+            next({
+              path: "/"
+            });
+          }
+        } else {
+          next();
+        }
+      }
     },
     {
       path: "/info",
@@ -68,7 +85,23 @@ export default new VueRouter({
     {
       path: "/cartcheckout",
       name: "cartcheckout",
-      component: () => import("../views/cartcheck")
+      meta: { requiresAuth: true },
+      component: () => import("../views/cartcheck"),
+      beforeEnter: (to, from, next) => {
+        console.log(store.state.authuser.roleId);
+        if (to.matched.some(record => record.meta.requiresAuth)) {
+          if (store.state.authuser.roleId === 2) {
+            next();
+          } else {
+            alert("Вы еще ничего не заказали");
+            next({
+              path: "/"
+            });
+          }
+        } else {
+          next();
+        }
+      }
     }
   ],
   mode: "history"
