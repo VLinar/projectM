@@ -2,7 +2,7 @@
   <header class="container">
     <div class="header_first_rowmenu">
       <router-link
-        src="https://www.romanticanawear.com/dist/images/d90e4fe0a0e5c48daaee65edefda339b.svg"
+        src="http://testdomainokey.000webhostapp.com/dipl/logo_1.png"
         alt="Logo"
         width="250px"
         tag="img"
@@ -14,19 +14,16 @@
         <router-link tag="a" active-class="active" to="/shares"
           >Акции</router-link
         >
-        <router-link tag="a" active-class="active" to="/about"
+        <router-link tag="a" active-class="active" to="/info"
           >О нас</router-link
         >
-        <router-link tag="a" active-class="active" to="/payments"
+        <router-link tag="a" active-class="active" to="/info/payment"
           >Оплата</router-link
         >
-        <router-link tag="a" active-class="active" to="/delivery"
+        <router-link tag="a" active-class="active" to="/info/delivery"
           >Доставка</router-link
         >
-        <router-link tag="a" active-class="active" to="/exchangandreturn"
-          >Обмен и возврат</router-link
-        >
-        <router-link tag="a" active-class="active" to="/contacts"
+        <router-link tag="a" active-class="active" to="/info/contacts"
           >Контакты</router-link
         >
       </div>

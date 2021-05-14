@@ -14,5 +14,4 @@ export default {};
 p {
     display: block;
 }
-.pay
 </style>

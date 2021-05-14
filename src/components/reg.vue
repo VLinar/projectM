@@ -43,6 +43,25 @@
     <div class="error" v-if="!$v.pass.required && $v.pass.$dirty">
       Обязательное поле
     </div>
+    <input
+      type="text"
+      placeholder="Адрес"
+      v-model.trim="$v.address.$model"
+      :class="$v.address.$dirty && $v.address.$error ? 'invalid' : ''"
+    />
+    <div class="error" v-if="!$v.address.required && $v.address.$dirty">
+      Обязательное поле
+    </div>
+    <input
+      type="text"
+      placeholder="Телефон"
+      v-mask="'+7 (###) ###-##-##'"
+      v-model.trim="$v.phone.$model"
+      :class="$v.phone.$dirty && $v.phone.$error ? 'invalid' : ''"
+    />
+    <div class="error" v-if="!$v.phone.required && $v.phone.$dirty">
+      Обязательное поле
+    </div>
     <input type="button" value="Зарегистрироваться" @click="switchemailform" />
     <div class="error autherr" v-html="errlog"></div>
   </form>
@@ -58,7 +77,9 @@ export default {
       firstname: "",
       login: "",
       pass: "",
-      errlog: ""
+      address: "",
+      phone: "",
+      errlog: "",
     };
   },
   methods: {
@@ -68,6 +89,8 @@ export default {
         firstname: this.firstname,
         email: this.login,
         password: this.pass,
+        address: this.address,
+        phone: this.phone,
         roleId: 1
       };
 
@@ -88,7 +111,9 @@ export default {
     pass: {
       required,
       minLength: minLength(6)
-    }
+    },
+    address: { required },
+    phone: { required }
   }
 };
 </script>
