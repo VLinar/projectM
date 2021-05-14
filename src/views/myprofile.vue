@@ -23,8 +23,8 @@
         <label for="phone">Тел.</label>
       </div>
       <div class="group">
-        <input type="text" id="adres" v-model="adres" />
-        <label for="adres">Адрес</label>
+        <input type="text" id="address" v-model="address" />
+        <label for="address">Адрес</label>
       </div>
     </div>
     <div class="button_group">
@@ -42,7 +42,7 @@ export default {
       lastname: "",
       firstname: "",
       email: "",
-      adres: "",
+      address: "",
       phone: ""
     };
   },
@@ -65,13 +65,19 @@ export default {
       this.lastname = this.authuser.lastname;
       this.firstname = this.authuser.firstname;
       this.email = this.authuser.email;
+      this.address = this.authuser.address;
+      this.phone = this.authuser.phone;
+
     },
 
     async setnewvalue() {
       let updateresult = await this.updateuser({
         firstname: this.firstname,
         lastname: this.lastname,
-        email: this.email
+        email: this.email,
+        address: this.address,
+        phone: this.phone
+
       });
 
       if (updateresult === 401) {
@@ -80,7 +86,9 @@ export default {
           await this.updateuser({
             firstname: this.firstname,
             lastname: this.lastname,
-            email: this.email
+            email: this.email,
+            address: this.address,
+            phone: this.phone
           });
         });
       }

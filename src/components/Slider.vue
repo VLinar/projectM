@@ -21,11 +21,11 @@ export default {
   data() {
     return {
       img: [
-        "https://www.romanticanawear.com/assets/3f95e9c0-53fe-11eb-8a62-f5f2e076f6e1_m.jpeg",
-        "https://www.romanticanawear.com/assets/433d1fd0-53fe-11eb-8a62-f5f2e076f6e1_m.jpeg",
-        "https://www.romanticanawear.com/assets/47091bf0-53fe-11eb-8a62-f5f2e076f6e1_m.jpeg",
-        "https://www.romanticanawear.com/assets/4a237b50-53fe-11eb-8a62-f5f2e076f6e1_m.jpeg",
-        "https://www.romanticanawear.com/assets/37097f60-53fe-11eb-8a62-f5f2e076f6e1_m.jpeg"
+        "https://i.mycdn.me/i?r=AzEPZsRbOZEKgBhR0XGMT1RkgSdfw5YnzFmdY-0VQso2K6aKTM5SRkZCeTgDn6uOyic",
+        "https://img3.goodfon.ru/wallpaper/nbig/e/7d/devushka-ulybka-cvety-buket.jpg",
+        "https://img1.goodfon.ru/wallpaper/nbig/9/4a/devushka-makiyazh-vzglyad-ulybka-3121.jpg",
+        "https://pg21.ru/userfiles/picitem/img-20150311195429-660.jpg",
+        "https://www.bykov-foto.ru/uploads/gallery/p2/fotografii-svadebnyh-buketov-01.jpg"
       ],
       settings: {
         dots: true,
