@@ -41,6 +41,11 @@ export default new VueRouter({
       path: "/product/:id",
       name: "product",
       component: () => import("../views/product")
+    },
+    {
+      path: "/cartcheckout",
+      name: "cartcheckout",
+      component: () => import("../views/cartcheck")
     }
   ],
   mode: "history"

@@ -25,7 +25,8 @@ export default new Vuex.Store({
     oneproduct: {},
     authuser: {},
     basket: [],
-    token: ""
+    token: "",
+    cartproducts: []
   },
   mutations: {
     sendgroups(state, value) {
@@ -48,6 +49,9 @@ export default new Vuex.Store({
     },
     reg(state, value) {
       state.authuser = value;
+    },
+    addproducttocart(state, value) {
+      state.cartproducts = value;
     }
   },
   actions: {
@@ -157,6 +161,51 @@ export default new Vuex.Store({
           console.log(err);
           return true;
         });
+    },
+    addproducttocart({ commit }, payload) {
+      let maxvalue = 0;
+      let newproductcart = this.state.cartproducts;
+      if (payload.id) {
+        newproductcart.map(e => {
+          if (e.id === payload.id) {
+            e.amounts += payload.amounts;
+            e.sum = e.price * e.amounts;
+          }
+          return e;
+        });
+        console.log(newproductcart);
+      } else {
+        if (newproductcart.length > 0) {
+          maxvalue = this.state.cartproducts.reduce((newvalue, currentvalue) =>
+            newvalue < currentvalue ? currentvalue : maxvalue
+          );
+        } else {
+          maxvalue = 1;
+        }
+
+        payload.id = maxvalue;
+        newproductcart.push(payload);
+      }
+
+      commit("addproducttocart", newproductcart);
+    },
+    productcartamount({ commit }, payload) {
+      let newproductcart = this.state.cartproducts;
+      newproductcart.map(e => {
+        if (e.id === payload.id) {
+          e.amounts = payload.amounts;
+        }
+        e.sum = e.price * e.amounts;
+        return e;
+      });
+      commit("addproducttocart", newproductcart);
+    },
+    deteleproductincart({ commit }, payload) {
+      let newproductcart = this.state.cartproducts;
+      commit(
+        "addproducttocart",
+        newproductcart.filter(e => e.id !== payload)
+      );
     }
   },
   getters: {
@@ -190,6 +239,12 @@ export default new Vuex.Store({
     },
     getuserrole: state => {
       return state.authuser.roleId;
+    },
+    getdoubleproduct: state => id => {
+      return state.cartproducts.find(e => e.productId === id);
+    },
+    getcartproductslength: state => {
+      return state.cartproducts.length;
     }
   }
 });

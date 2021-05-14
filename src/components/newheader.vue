@@ -76,7 +76,14 @@
             <span @click="logout">Выйти</span>
           </div>
         </i>
-        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        <i
+          class="fa fa-shopping-cart shopping-cart"
+          aria-hidden="true"
+          @click="cartbar = !cartbar"
+          ><span v-if="getcartproductslength > 0">{{
+            getcartproductslength
+          }}</span></i
+        >
       </div>
     </div>
     <transition name="category">
@@ -88,11 +95,15 @@
         @closecategorybar="categorybar = !categorybar"
       />
     </transition>
+    <transition name="category">
+      <Cart v-if="cartbar" @closecartbar="cartbar = !cartbar" />
+    </transition>
   </header>
 </template>
 
 <script>
 import Category from "@/components/categorybar.vue";
+import Cart from "@/components/cartbar.vue";
 import Authmodal from "@/components/authmodal.vue";
 import { mapActions, mapGetters } from "vuex";
 
@@ -102,7 +113,8 @@ export default {
       categorybar: false,
       blacktheme: false,
       modalauth: false,
-      usermenu: false
+      usermenu: false,
+      cartbar: false
     };
   },
   watch: {
@@ -112,7 +124,8 @@ export default {
   },
   components: {
     Category,
-    Authmodal
+    Authmodal,
+    Cart
   },
   methods: {
     ...mapActions(["userexit", "guestreg"]),
@@ -131,7 +144,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getuserrole"])
+    ...mapGetters(["getuserrole", "getcartproductslength"])
   }
 };
 </script>
@@ -222,6 +235,17 @@ export default {
     }
     .usermenu:hover div {
       color: black;
+    }
+    .shopping-cart {
+      position: relative;
+      span {
+        position: absolute;
+        top: -5px;
+        font-size: 10px;
+        padding: 3px 5px;
+        background: red;
+        border-radius: 20px;
+      }
     }
   }
 }

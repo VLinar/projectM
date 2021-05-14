@@ -71,6 +71,9 @@ header {
   span:hover,
   .fa:hover {
     color: red;
+    span {
+      color: black;
+    }
   }
 }
 
