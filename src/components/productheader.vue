@@ -1,7 +1,7 @@
 <template>
   <div class="prod_header">
     <Productimage :image="image" />
-    <Productinfo />
+    <Productinfo :productinfo="productinfo" />
   </div>
 </template>
 
@@ -12,6 +12,9 @@ export default {
   props: {
     image: {
       type: Array
+    },
+    productinfo: {
+      type: Object
     }
   },
   components: {
@@ -25,5 +28,6 @@ export default {
 .prod_header {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  gap: 2em;
 }
 </style>

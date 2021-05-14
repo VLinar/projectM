@@ -10,7 +10,9 @@
         :to="`/product/${item.id}`"
       >
         <img
-          :src="item.images.length > 0 ? item.images.url : emtyimage"
+          :src="
+            item.images.length > 0 ? defoltimage(item.images).url : emtyimage
+          "
           alt="Изображение товара"
         />
         <div class="card_text">
@@ -57,7 +59,10 @@ export default {
     ...mapState(["products"])
   },
   methods: {
-    ...mapActions(["getproduct"])
+    ...mapActions(["getproduct"]),
+    defoltimage(imagearray) {
+      return imagearray.find(e => e.default === true);
+    }
   }
 };
 </script>
@@ -75,6 +80,9 @@ export default {
     flex-direction: column;
     box-shadow: rgb(0 0 0 / 8%) 0px 6.11106px 21.3887px;
     transition: box-shadow 0.2s ease 0s;
+    img {
+      padding-top: 5px;
+    }
     &:hover {
       box-shadow: rgb(0 0 0 / 15%) 0px 0px 20px 10px;
       transition: box-shadow 0.2s ease 0s;

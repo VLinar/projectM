@@ -5,7 +5,7 @@
       <router-link
         v-for="(item, idx) in groupbread()"
         :key="item.id"
-        :to="item.url"
+        :to="`/categories/${item.url}`"
         tag="a"
         >{{ item.name
         }}<i
@@ -13,7 +13,7 @@
           v-if="idx + 1 === groupbread().length && !prod ? false : true"
         ></i>
       </router-link>
-      <router-link v-if="prod" to="/" tag="a">
+      <router-link v-if="prod" to="#" tag="a">
         {{ prodname }}
       </router-link>
     </div>
@@ -70,6 +70,9 @@ export default {
     .right {
       transform: rotate(-45deg);
       -webkit-transform: rotate(-45deg);
+    }
+    &:hover {
+      color: red;
     }
   }
 }
