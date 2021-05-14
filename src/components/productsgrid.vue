@@ -19,7 +19,11 @@
           <h4>{{ item.name }}</h4>
           <div>
             <span>{{ item.price }} ₽/шт</span>
-            <i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i>
+            <i
+              class="fa fa-cart-plus fa-2x"
+              aria-hidden="true"
+              @click.prevent="addtocart(item.id, item.price, item.name)"
+            ></i>
           </div>
         </div>
       </router-link>
@@ -28,7 +32,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 import Spinner from "@/components/loadspinner.vue";
 export default {
   props: {
@@ -56,12 +60,36 @@ export default {
     );
   },
   computed: {
-    ...mapState(["products"])
+    ...mapState(["products"]),
+    ...mapGetters(["getdoubleproduct"])
   },
   methods: {
-    ...mapActions(["getproduct"]),
+    ...mapActions(["getproduct", "addproducttocart"]),
     defoltimage(imagearray) {
       return imagearray.find(e => e.default === true);
+    },
+    addtocart(id, prodprice, prodname) {
+      console.log(this.getdoubleproduct(id));
+      if (this.getdoubleproduct(id) === undefined) {
+        let orderproduct = {
+          name: prodname,
+          amounts: 1,
+          price: prodprice,
+          sum: prodprice * 1,
+          productId: id
+        };
+        this.addproducttocart(orderproduct);
+      } else {
+        let orderproduct = {
+          id: this.getdoubleproduct(id).id,
+          name: prodname,
+          amounts: 1,
+          price: prodprice,
+          sum: prodprice * 1,
+          productId: id
+        };
+        this.addproducttocart(orderproduct);
+      }
     }
   }
 };
@@ -89,6 +117,7 @@ export default {
     }
     .card_text {
       padding: 0 20px 10px 20px;
+      cursor: pointer;
       h4 {
         margin-bottom: 10px;
       }
@@ -96,6 +125,11 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: baseline;
+      }
+      i {
+        &:hover {
+          color: red;
+        }
       }
     }
 

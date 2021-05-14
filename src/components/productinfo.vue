@@ -23,12 +23,19 @@
         ></i>
       </div>
     </div>
-    <button v-if="productinfo.amount > 0">В корзину</button>
+    <button
+      v-if="productinfo.amount > 0"
+      @click="addtocart(productinfo.id, productinfo.price, productinfo.name)"
+    >
+      В корзину
+    </button>
+
     <span v-else>Нет в наличии</span>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   props: {
     productinfo: {
@@ -37,8 +44,38 @@ export default {
   },
   data() {
     return {
-      count: 0
+      count: 1
     };
+  },
+  computed: {
+    ...mapGetters(["getdoubleproduct"])
+  },
+  methods: {
+    ...mapActions(["addproducttocart"]),
+
+    addtocart(prodid, prodprice, prodname) {
+      console.log(this.getdoubleproduct(prodid));
+      if (this.getdoubleproduct(prodid) === undefined) {
+        let orderproduct = {
+          name: prodname,
+          amounts: this.count,
+          price: prodprice,
+          sum: prodprice,
+          productId: prodid
+        };
+        this.addproducttocart(orderproduct);
+      } else {
+        let orderproduct = {
+          id: this.getdoubleproduct(prodid).id,
+          name: prodname,
+          amounts: this.count,
+          price: prodprice,
+          sum: prodprice,
+          productId: prodid
+        };
+        this.addproducttocart(orderproduct);
+      }
+    }
   }
 };
 </script>
