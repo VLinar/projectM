@@ -4,7 +4,7 @@
       <router-link
         src="http://testdomainokey.000webhostapp.com/dipl/logo_1.png"
         alt="Logo"
-        width="250px"
+        width="150px"
         tag="img"
         to="/"
       >
