@@ -10,7 +10,7 @@
      <router-link to="/info/delivery" tag="span" active-class="active" exact
         >Доставка</router-link
       >
-      <router-link to="/info/contacts" tag="span" active-class="active" exact
+      <router-link to="/info/contact" tag="span" active-class="active" exact
         >Контакты</router-link
       >
     </div>

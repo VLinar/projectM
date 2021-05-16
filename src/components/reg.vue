@@ -91,7 +91,7 @@ export default {
         password: this.pass,
         address: this.address,
         phone: this.phone,
-        roleId: 1
+        roleId: 2
       };
 
       let result = await this.registration(regbody);

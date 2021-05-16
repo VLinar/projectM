@@ -23,7 +23,7 @@
         <router-link tag="a" active-class="active" to="/info/delivery"
           >Доставка</router-link
         >
-        <router-link tag="a" active-class="active" to="/info/contacts"
+        <router-link tag="a" active-class="active" to="/info/contact"
           >Контакты</router-link
         >
       </div>

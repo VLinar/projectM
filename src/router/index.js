@@ -70,9 +70,9 @@ export default new VueRouter({
           component: () => import("../views/delivery")
         },
         {
-          path: "contacts",
-          name: "contacts",
-          component: () => import("../views/contacts")
+          path: "contact",
+          name: "contact",
+          component: () => import("../views/contact")
         }
       ]
     },
@@ -85,21 +85,12 @@ export default new VueRouter({
     {
       path: "/cartcheckout",
       name: "cartcheckout",
-      meta: { requiresAuth: true },
       component: () => import("../views/cartcheck"),
       beforeEnter: (to, from, next) => {
-        console.log(store.state.authuser.roleId);
-        if (to.matched.some(record => record.meta.requiresAuth)) {
-          if (store.state.authuser.roleId === 2) {
-            next();
-          } else {
-            alert("Вы еще ничего не заказали");
-            next({
-              path: "/"
-            });
-          }
-        } else {
-          next();
+        if(store.state.cartproducts.length === 0){
+          alert('Вы еще ничего не заказали')
+        }else{
+          next()
         }
       }
     }
