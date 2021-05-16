@@ -12,12 +12,7 @@
         @click="activeimage = item"
       />
     </div>
-    <img
-      :src="activeimage.url"
-      :alt="activeimage.name"
-      width="600px"
-      height="550px"
-    />
+    <img :src="deafaultimage" width="600px" height="550px" />
   </div>
 </template>
 
@@ -26,20 +21,18 @@ export default {
   props: {
     image: {
       type: Array
+    },
+    deafaultimage: {
+      type: String
     }
   },
   data() {
     return {
-      activeimage: {}
+      activeimage: ""
     };
   },
   created() {
-    this.activeimage = this.defaultimageurl;
-  },
-  computed: {
-    defaultimageurl() {
-      return this.$props.image.find(e => e.default === true);
-    }
+    this.activeimage = this.$props.deafaultimage;
   }
 };
 </script>
