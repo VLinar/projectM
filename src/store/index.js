@@ -182,7 +182,6 @@ export default new Vuex.Store({
         } else {
           maxvalue = 1;
         }
-
         payload.id = maxvalue;
         newproductcart.push(payload);
       }

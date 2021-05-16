@@ -60,7 +60,7 @@ export default {
           name: prodname,
           amounts: this.count,
           price: prodprice,
-          sum: prodprice,
+          sum: prodprice * this.count,
           productId: prodid
         };
         this.addproducttocart(orderproduct);
