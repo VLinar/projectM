@@ -68,6 +68,9 @@ export default {
     ...mapActions(["productcartamount", "deteleproductincart"]),
     minussum(item) {
       this.productcartamount(item.id, item.amounts--);
+      if (item.amounts === 0) {
+        this.deteleproductincart(item.id);
+      }
     },
     plussum(item) {
       this.productcartamount(item.id, item.amounts++);

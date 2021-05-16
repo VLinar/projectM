@@ -54,7 +54,6 @@ export default {
     ...mapActions(["addproducttocart"]),
 
     addtocart(prodid, prodprice, prodname) {
-      console.log(this.getdoubleproduct(prodid));
       if (this.getdoubleproduct(prodid) === undefined) {
         let orderproduct = {
           name: prodname,
