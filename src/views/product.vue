@@ -6,7 +6,11 @@
       :prodname="oneproduct[0].name"
       v-else
     />
-    <Productheader :image="oneproduct[0].images" :productinfo="oneproduct[0]" />
+    <Productheader
+      :image="oneproduct[0].images"
+      :productinfo="oneproduct[0]"
+      :deafaultimage="deafaultimage()"
+    />
     <hr />
     <Productfooter
       :description="oneproduct[0].description"
@@ -47,8 +51,16 @@ export default {
   computed: {
     ...mapState(["oneproduct"])
   },
+  watch: {
+    async $route() {
+      this.loading = await this.getoneproduct(this.$route.params.id);
+    }
+  },
   methods: {
-    ...mapActions(["getoneproduct", "getgroups"])
+    ...mapActions(["getoneproduct", "getgroups"]),
+    deafaultimage() {
+      return this.oneproduct[0].images.find(e => e.default === true).url;
+    }
   }
 };
 </script>

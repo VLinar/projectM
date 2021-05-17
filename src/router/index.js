@@ -85,14 +85,12 @@ export default new VueRouter({
     {
       path: "/cartcheckout",
       name: "cartcheckout",
-      component: () => import("../views/cartcheck"),
-      beforeEnter: (to, from, next) => {
-        if(store.state.cartproducts.length === 0){
-          alert('Вы еще ничего не заказали')
-        }else{
-          next()
-        }
-      }
+      component: () => import("../views/cartcheck")
+    },
+    {
+      path: "/cartcheckout/orderconfirmation",
+      name: "orderconfirmation",
+      component: () => import("../views/orderconfirmation")
     }
   ],
   mode: "history"

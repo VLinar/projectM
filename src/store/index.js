@@ -26,7 +26,10 @@ export default new Vuex.Store({
     authuser: {},
     basket: [],
     token: "",
-    cartproducts: []
+    cartproducts: [],
+    payments: [],
+    delivery: [],
+    maxnumbername: 0
   },
   mutations: {
     sendgroups(state, value) {
@@ -51,6 +54,18 @@ export default new Vuex.Store({
       state.authuser = value;
     },
     addproducttocart(state, value) {
+      state.cartproducts = value;
+    },
+    addpayment(state, value) {
+      state.payments = value;
+    },
+    delivery(state, value) {
+      state.delivery = value;
+    },
+    updatemaxordernumver(state, value) {
+      state.maxnumbername = value;
+    },
+    deletecartitem(state, value) {
       state.cartproducts = value;
     }
   },
@@ -182,7 +197,6 @@ export default new Vuex.Store({
         } else {
           maxvalue = 1;
         }
-
         payload.id = maxvalue;
         newproductcart.push(payload);
       }
@@ -206,6 +220,46 @@ export default new Vuex.Store({
         "addproducttocart",
         newproductcart.filter(e => e.id !== payload)
       );
+    },
+    getpayments({ commit }) {
+      axios
+        .get("http://localhost:3012/payments/")
+        .then(res => {
+          commit("addpayment", res.data.response);
+        })
+        .catch(err => console.log(err));
+    },
+    delivery({ commit }) {
+      axios
+        .get("http://localhost:3012/delivery/")
+        .then(res => {
+          commit("delivery", res.data.response);
+        })
+        .catch(err => console.log(err));
+    },
+    async addupdatemaxordernumber({ commit }) {
+      await axios
+        .get("http://localhost:3012/orders/")
+        .then(async res => {
+          let result = res.data.response;
+          let number = 0;
+
+          console.log(result);
+          if (result.length) {
+            number = await result.reduce((newvalue, currentvalue) =>
+              newvalue < currentvalue ? currentvalue : newvalue
+            ).number;
+            number++;
+            console.log("testing", number);
+          } else {
+            number = 1;
+          }
+          commit("updatemaxordernumver", number);
+        })
+        .catch(err => console.log(err));
+    },
+    deletecart({ commit }) {
+      commit("deletecartitem", []);
     }
   },
   getters: {

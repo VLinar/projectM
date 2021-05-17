@@ -17,6 +17,8 @@ export default {
     Footer
   },
   created() {
+    this.getpayments();
+    this.delivery();
     this.getCookie("refresh_token")
       ? this.updaterefresh(this.getCookie("refresh_token"))
       : this.guestreg({
@@ -28,7 +30,7 @@ export default {
         });
   },
   methods: {
-    ...mapActions(["updaterefresh", "guestreg"]),
+    ...mapActions(["updaterefresh", "guestreg", "getpayments", "delivery"]),
     getCookie(name) {
       /* eslint-disable */
       let matches = document.cookie.match(

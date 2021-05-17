@@ -1,6 +1,6 @@
 <template>
   <div class="prod_header">
-    <Productimage :image="image" />
+    <Productimage :image="image" :deafaultimage="deafaultimage" />
     <Productinfo :productinfo="productinfo" />
   </div>
 </template>
@@ -15,6 +15,10 @@ export default {
     },
     productinfo: {
       type: Object
+    },
+    deafaultimage: {
+      type: String,
+      default: "https://biolik.com.ua/wp-content/uploads/2019/12/NOFoto.png"
     }
   },
   components: {
