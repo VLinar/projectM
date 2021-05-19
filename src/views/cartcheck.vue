@@ -6,44 +6,66 @@
         <h4>Личные данные</h4>
         <div class="input_group">
           <div class="group">
+            <span v-if="error.firstname.empty">Обязательное поле</span>
             <input
               type="text"
               placeholder="Имя"
               id="firstname"
-              v-model="firstname"
+              @input="error.firstname.empty = false"
+              v-model.trim="$v.firstname.$model"
+              :class="error.firstname.empty ? 'input_err' : ''"
             />
             <label for="firstname">Имя</label>
           </div>
           <div class="group">
+            <span v-if="error.lastname.empty">Обязательное поле</span>
             <input
               type="text"
+              @input="error.lastname.empty = false"
               placeholder="Фамилия"
               id="lastname"
-              v-model="lastname"
+              v-model.trim="$v.lastname.$model"
+              :class="error.lastname.empty ? 'input_err' : ''"
             />
             <label for="lastname">Фамилия</label>
           </div>
           <div class="group">
+            <span v-if="error.email.empty">Обязательное поле</span>
+            <span v-if="error.email.email">Некорректный E-mail</span>
             <input
               type="text"
               placeholder="E-mail"
+              @input="error.email = { empty: false, email: false }"
               id="email"
-              v-model="email"
+              v-model.trim="$v.email.$model"
+              :class="error.email.empty || error.email.email ? 'input_err' : ''"
             />
             <label for="email">Почта</label>
           </div>
           <div class="group">
+            <span v-if="error.phone.empty">Обязательное поле</span>
+            <span v-if="error.phone.min">Не корректный номер телефона</span>
             <input
               type="text"
               id="phone"
+              @input="error.phone = { empty: false, min: false }"
               placeholder="+7 (999) 999-99-99"
-              v-model="phone"
+              v-model.trim="$v.phone.$model"
               v-mask="'+7 (###) ###-##-##'"
+              :class="error.phone.empty || error.phone.min ? 'input_err' : ''"
             />
             <label for="phone">Тел.</label>
           </div>
           <div class="group">
-            <input placeholder="Адрес" type="text" id="adres" v-model="adres" />
+            <span v-if="error.adres.empty">Обязательное поле</span>
+            <input
+              placeholder="Адрес"
+              type="text"
+              id="adres"
+              @input="error.adres.empty = false"
+              v-model.trim="$v.adres.$model"
+              :class="error.adres.empty ? 'input_err' : ''"
+            />
             <label for="adres">Адрес</label>
           </div>
         </div>
@@ -109,7 +131,9 @@
 <script>
 import axios from "axios";
 import { mapActions, mapGetters, mapState } from "vuex";
+import { required, email, minLength } from "vuelidate/lib/validators";
 export default {
+  name: "cartcheck",
   data() {
     return {
       lastname: "",
@@ -117,8 +141,33 @@ export default {
       email: "",
       adres: "",
       phone: "",
-      paymethod: "",
-      deliverymethod: ""
+      paymethod: 1,
+      deliverymethod: 1,
+      error: {
+        lastname: {
+          empty: false
+        },
+        firstname: {
+          empty: false
+        },
+        email: {
+          empty: false,
+          email: false
+        },
+        adres: {
+          empty: false
+        },
+        phone: {
+          empty: false,
+          min: false
+        },
+        paymethod: {
+          empty: false
+        },
+        deliverymethod: {
+          empty: false
+        }
+      }
     };
   },
   created() {
@@ -149,10 +198,26 @@ export default {
     }
   },
   methods: {
-    addorder() {
-      this.addupdatemaxordernumber
-        .then(() => {
-          axios
+    async addorder() {
+      let valid = this.inputvalid();
+      if (valid) {
+        return;
+      }
+      await this.addupdatemaxordernumber
+        .then(async () => {
+          if (this.authuser.roleId === 1) {
+            await axios
+              .put(`http://localhost:3012/users/${this.authuser.id}`, {
+                firstname: this.firstname,
+                lastname: this.lastname,
+                email: this.email,
+                address: this.adres,
+                phone: this.phone
+              })
+              .then(res => res)
+              .catch(err => console.log(err));
+          }
+          await axios
             .post("http://localhost:3012/orders", {
               date: new Date(),
               number: this.maxnumbername,
@@ -167,13 +232,12 @@ export default {
               paymentId: this.paymethod
             })
             .then(res => {
-              console.log(res);
               let orderid = res.data.id;
-              this.cartproducts.map(e => {
+              this.cartproducts.map(async e => {
                 delete e.id;
                 delete e.name;
                 e.orderId = orderid;
-                axios
+                await axios
                   .post("http://localhost:3012/ordersgoods", e)
                   .then(res => {
                     if (res.data.id) {
@@ -196,7 +260,53 @@ export default {
           : date.getMonth() + 1
       }-${date.getFullYear()}`;
     },
-    maxnimber() {}
+    inputvalid() {
+      let newobj = {};
+      this.$v.firstname.$model === ""
+        ? (newobj.firstname = { empty: true })
+        : (newobj.firstname = { empty: false });
+      this.$v.lastname.$model === ""
+        ? (newobj.lastname = { empty: true })
+        : (newobj.lastname = { empty: false });
+      this.$v.email.$model === ""
+        ? (newobj.email = { empty: true })
+        : (newobj.email = { empty: false });
+      !this.$v.email.email && this.$v.email.$dirty
+        ? (newobj.email.email = true)
+        : (newobj.email.email = false);
+
+      this.$v.phone.$model === ""
+        ? (newobj.phone = { empty: true })
+        : (newobj.phone = { empty: false });
+      !this.$v.phone.minLength && this.$v.phone.$dirty
+        ? (newobj.phone.min = true)
+        : (newobj.phone.min = false);
+      this.$v.adres.$model === ""
+        ? (newobj.adres = { empty: true })
+        : (newobj.adres = { empty: false });
+
+      this.error = newobj;
+
+      return this.$v.$invalid;
+    }
+  },
+  validations: {
+    lastname: {
+      required
+    },
+    firstname: {
+      required
+    },
+    email: {
+      required,
+      email
+    },
+    adres: {
+      required
+    },
+    phone: {
+      minLength: minLength(17)
+    }
   }
 };
 </script>
@@ -219,6 +329,11 @@ export default {
         .group {
           flex-direction: column-reverse;
           display: flex;
+          span {
+            color: red;
+            font-size: 12px;
+            padding-top: 3px;
+          }
           label {
             padding-bottom: 5px;
             font-size: 14px;
@@ -234,6 +349,13 @@ export default {
                 color: red;
               }
               outline: none;
+              border: 1px solid red;
+            }
+
+            &.input_err {
+              + label {
+                color: red;
+              }
               border: 1px solid red;
             }
           }

@@ -247,8 +247,9 @@ export default new Vuex.Store({
           console.log(result);
           if (result.length) {
             number = await result.reduce((newvalue, currentvalue) =>
-              newvalue < currentvalue ? currentvalue : newvalue
+              newvalue.number < currentvalue.number ? currentvalue : newvalue
             ).number;
+            console.log("number", number);
             number++;
             console.log("testing", number);
           } else {

@@ -225,15 +225,13 @@ export default {
         box-shadow: 4px 5px 20px 0px #0000006b;
         span {
           padding: 2.5px 0px;
+          &:hover {
+            color: red;
+          }
         }
       }
-      div:hover {
-        color: black;
-      }
     }
-    .usermenu:hover div {
-      color: black;
-    }
+
     .shopping-cart {
       position: relative;
       span {

@@ -9,10 +9,10 @@
         :class="item.url === activeimage.url ? 'activeimg' : ''"
         height="50"
         width="50"
-        @click="activeimage = item"
+        @click="activeimage = item.url"
       />
     </div>
-    <img :src="deafaultimage" width="600px" height="550px" />
+    <img :src="activeimage" width="600px" height="550px" />
   </div>
 </template>
 
@@ -30,6 +30,11 @@ export default {
     return {
       activeimage: ""
     };
+  },
+  watch: {
+    deafaultimage(newV) {
+      this.activeimage = newV;
+    }
   },
   created() {
     this.activeimage = this.$props.deafaultimage;
