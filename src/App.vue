@@ -1,21 +1,13 @@
 <template>
   <div id="app">
-    <Header />
     <router-view />
-    <Footer />
   </div>
 </template>
 
 <script>
-import Header from "@/components/newheader.vue";
-import Footer from "@/components/footer.vue";
 import { mapActions } from "vuex";
 
 export default {
-  components: {
-    Header,
-    Footer
-  },
   created() {
     this.getpayments();
     this.delivery();

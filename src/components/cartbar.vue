@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="cart_product">
-        <div v-for="item in cartproducts" :key="item.id">
+        <div class="cartproduct" v-for="item in cartproducts" :key="item.name">
           <div class="cartproduct_header">
             <h4>{{ item.name }}</h4>
             <i
@@ -128,8 +128,11 @@ export default {
       }
     }
     .cart_product {
-      border: 1px solid gray;
-      padding: 0px 15px;
+      .cartproduct {
+        border: 1px solid gray;
+        padding: 0px 15px;
+      }
+
       h4 {
         margin: 10px 0px;
       }

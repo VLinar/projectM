@@ -242,7 +242,10 @@ export default {
                   .then(res => {
                     if (res.data.id) {
                       this.deletecart;
-                      this.$router.push("/cartcheckout/orderconfirmation");
+                      this.$router.push({
+                        path: "/cartcheckout/orderconfirmation",
+                        params: orderid
+                      });
                     }
                   })
                   .catch(err => console.log(err));

@@ -100,7 +100,7 @@
 
 <script>
 import Category from "@/components/categorybar.vue";
-import Cart from "@/components/cartbar.vue";
+import Cart from "@/components/cartbar";
 import Authmodal from "@/components/authmodal.vue";
 import { mapActions, mapGetters } from "vuex";
 
