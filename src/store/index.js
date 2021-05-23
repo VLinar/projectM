@@ -29,7 +29,8 @@ export default new Vuex.Store({
     cartproducts: [],
     payments: [],
     delivery: [],
-    maxnumbername: 0
+    maxnumbername: 0,
+    myorders: []
   },
   mutations: {
     sendgroups(state, value) {
@@ -67,6 +68,9 @@ export default new Vuex.Store({
     },
     deletecartitem(state, value) {
       state.cartproducts = value;
+    },
+    getmyorders(state, value) {
+      state.myorders = value;
     }
   },
   actions: {
@@ -243,15 +247,11 @@ export default new Vuex.Store({
         .then(async res => {
           let result = res.data.response;
           let number = 0;
-
-          console.log(result);
           if (result.length) {
             number = await result.reduce((newvalue, currentvalue) =>
               newvalue.number < currentvalue.number ? currentvalue : newvalue
             ).number;
-            console.log("number", number);
             number++;
-            console.log("testing", number);
           } else {
             number = 1;
           }
@@ -261,6 +261,32 @@ export default new Vuex.Store({
     },
     deletecart({ commit }) {
       commit("deletecartitem", []);
+    },
+    getmyorders({ commit }) {
+      let userid = this.state.authuser.id;
+      axios
+        .get(`http://localhost:3012/myorders/${userid}`)
+        .then(res => {
+          commit("getmyorders", res.data);
+        })
+        .catch(err => console.log(err));
+    },
+    getproductbygroupid({ commit }, payload) {
+      axios
+        .get(`http://localhost:3012/productsid/${payload.groupid}`, {
+          params: {
+            limit: payload.limit,
+            page: payload.pages
+          }
+        })
+        .then(res => {
+          commit("sendproducts", res.data.result);
+        })
+        .catch(err => console.log(err));
+      return axios
+        .get(`http://localhost:3012/productscount/${payload.groupid}`)
+        .then(res => res.data.count)
+        .catch(err => console.log(err));
     }
   },
   getters: {
@@ -300,6 +326,9 @@ export default new Vuex.Store({
     },
     getcartproductslength: state => {
       return state.cartproducts.length;
+    },
+    getdeliveryid: state => id => {
+      return state.delivery.find(e => (e.id = id));
     }
   }
 });

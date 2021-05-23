@@ -77,4 +77,37 @@ header {
 .fa-user {
   font-size: 22.5px;
 }
+.VuePagination {
+  padding: 15px 0px;
+  .VuePagination__count {
+    display: none;
+  }
+  .pagination {
+    display: flex;
+    gap: 0.5em;
+    justify-content: center;
+    user-select: none;
+    .page-item {
+      list-style-type: none;
+      &.VuePagination__pagination-item-prev-chunk a,
+      &.VuePagination__pagination-item-prev-page a,
+      &.VuePagination__pagination-item-next-page a,
+      &.VuePagination__pagination-item-next-chunk a {
+        border-bottom: none;
+      }
+    }
+    .page-link {
+      padding: 5px 10px;
+      cursor: pointer;
+      border-bottom: 1px solid white;
+      &.active {
+        color: red;
+        border-bottom: 1px solid red;
+      }
+      &:hover {
+        border-bottom: 1px solid gray;
+      }
+    }
+  }
+}
 </style>

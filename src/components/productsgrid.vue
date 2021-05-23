@@ -36,7 +36,8 @@ import { mapActions, mapGetters, mapState } from "vuex";
 import Spinner from "@/components/loadspinner.vue";
 export default {
   props: {
-    limit: Number
+    limit: Number,
+    groupid: Number
   },
   components: {
     Spinner
@@ -48,16 +49,20 @@ export default {
     };
   },
   async mounted() {
-    let params = {};
+    if (!this.$props.groupid) {
+      let params = {};
 
-    Object.entries(this.$props).map(e => {
-      params[e[0]] = e[1];
-    });
+      Object.entries(this.$props).map(e => {
+        params[e[0]] = e[1];
+      });
 
-    setTimeout(
-      async () => (this.loading = await this.getproduct(params)),
-      2500
-    );
+      setTimeout(
+        async () => (this.loading = await this.getproduct(params)),
+        2500
+      );
+    } else {
+      this.loading = false;
+    }
   },
   computed: {
     ...mapState(["products"]),

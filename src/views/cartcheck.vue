@@ -244,7 +244,7 @@ export default {
                       this.deletecart;
                       this.$router.push({
                         path: "/cartcheckout/orderconfirmation",
-                        params: orderid
+                        query: { id: orderid }
                       });
                     }
                   })

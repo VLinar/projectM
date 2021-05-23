@@ -2,31 +2,67 @@
   <div class="container">
     <h2>Спасибо за заказ!</h2>
     <hr />
-    <h4>Заказ №12</h4>
-    <label for="">Май 19,2021 04:11</label>
+    <h4>Заказ №{{ order.number }}</h4>
+    <label for="">{{ dateformat(new Date(order.date)) }}</label>
     <hr />
     <h4>Статус платежа: Ожидается оплата</h4>
     <label for="">Итого 6500р.</label>
     <hr />
     <h4>Доставим по адресу</h4>
-    <label for="">Ул. Ленина дом каруселина</label>
+    <label for="">{{ order.delivery_address }}</label>
     <h4>Способ доставки</h4>
-    <label for="">Чёршдоставка</label>
+    <label for="">{{ getdeliveryid(order.deliveryId).name }}</label>
     <hr />
     <h4>Ваш заказ</h4>
     <div class="fixed">
-      <img src="" alt="" />
-      <div class="name">
-        <label for="">Название</label><br /><br />
-        <label for="">*1</label>
+      <div class="prod" v-for="prod in product" :key="prod.id">
+        <div class="name">
+          <label for="">{{ prod.product.name }}</label>
+          <label for="">{{ prod.amounts }}</label>
+        </div>
       </div>
     </div>
-    <router-link tag="button" to="/shop">Продолжить покупки</router-link>
+    <router-link tag="button" to="/">Продолжить покупки</router-link>
   </div>
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+import { mapGetters } from "vuex";
+export default {
+  data() {
+    return {
+      order: "",
+      product: ""
+    };
+  },
+  created() {
+    axios
+      .get(`http://localhost:3012/orders/${this.$route.query.id}`)
+      .then(res => {
+        this.order = res.data;
+        axios
+          .get(`http://localhost:3012/ordersgoodsid/${res.data.id}`)
+          .then(res => {
+            this.product = res.data;
+          })
+          .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+  },
+  computed: {
+    ...mapGetters(["getdeliveryid"])
+  },
+  methods: {
+    dateformat(data) {
+      return `${data.getDate()}-${
+        data.getMonth().length > 1
+          ? data.getMonth() + 1
+          : "0" + (data.getMonth() + 1)
+      }-${data.getFullYear()}  ${data.getHours()}:${data.getMinutes()}`;
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -47,15 +83,22 @@ export default {};
   }
   .fixed {
     display: flex;
-    align-items: center;
+    // align-items: center;
+    flex-direction: column;
+    .prod {
+      display: flex;
+      img {
+        width: 70px;
+        height: 70px;
+      }
+      .name {
+        margin: 10px;
+        display: flex;
+        flex-direction: column;
+      }
+    }
   }
-  .fixed img {
-    width: 70px;
-    height: 70px;
-  }
-  .name {
-    margin: 10px;
-  }
+
   button {
     position: relative;
     left: 50%;
