@@ -101,6 +101,11 @@ export default new VueRouter({
       component: () => import("../views/admin.vue")
     },
     {
+      path: "/adminauth",
+      name: "adminauth",
+      component: () => import("../views/adminauth.vue")
+    },
+    {
       path: "*",
       name: "404error",
       component: () => import("../views/404error.vue")

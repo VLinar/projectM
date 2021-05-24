@@ -98,7 +98,7 @@
           <div class="product_block" v-if="cartproducts.length > 0">
             <div
               v-for="item in cartproducts"
-              :key="item.id"
+              :key="item.name"
               class="cart_product"
             >
               <div class="cartproduct_header">
@@ -203,6 +203,7 @@ export default {
       if (valid) {
         return;
       }
+      let orderid = 0;
       await this.addupdatemaxordernumber
         .then(async () => {
           if (this.authuser.roleId === 1) {
@@ -232,7 +233,7 @@ export default {
               paymentId: this.paymethod
             })
             .then(res => {
-              let orderid = res.data.id;
+              orderid = res.data.id;
               this.cartproducts.map(async e => {
                 delete e.id;
                 delete e.name;
@@ -240,13 +241,7 @@ export default {
                 await axios
                   .post("http://localhost:3012/ordersgoods", e)
                   .then(res => {
-                    if (res.data.id) {
-                      this.deletecart;
-                      this.$router.push({
-                        path: "/cartcheckout/orderconfirmation",
-                        query: { id: orderid }
-                      });
-                    }
+                    return res;
                   })
                   .catch(err => console.log(err));
               });
@@ -254,6 +249,17 @@ export default {
             .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
+      axios
+        .post(`http://localhost:3012/ordermail/${orderid}`)
+        .then(res => {
+          this.$router.push({
+            path: "/cartcheckout/orderconfirmation",
+            query: { id: orderid }
+          });
+          this.deletecart;
+          return res.data.accepted;
+        })
+        .catch(err => err);
     },
     formatdate() {
       let date = new Date();
