@@ -85,7 +85,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  beforeCreate() {
+  created() {
     if (this.getuserrole !== 3) {
       this.$router.push("/adminauth");
     }
