@@ -64,8 +64,9 @@ export default {
     ...mapState(["authuser"])
   },
   methods: {
-    ...mapActions(["checkauth"]),
+    ...mapActions(["checkauth", "cleanuserauth"]),
     async signin() {
+      await this.cleanuserauth();
       await this.checkauth({
         login: this.login,
         pass: this.pass

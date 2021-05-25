@@ -33,10 +33,12 @@
         <i class="fa fa-bars" aria-hidden="true"></i> Каталог</span
       >
       <div class="search">
-        <input type="text" placeholder="Поиск" /><i
-          class="fa fa-search"
-          aria-hidden="true"
-        ></i>
+        <input
+          type="text"
+          placeholder="Поиск"
+          v-model="search"
+          @input="searchinput"
+        /><i class="fa fa-search" aria-hidden="true"></i>
       </div>
       <div class="icon_button">
         <i
@@ -102,6 +104,7 @@
 import Category from "@/components/categorybar.vue";
 import Cart from "@/components/cartbar";
 import Authmodal from "@/components/authmodal.vue";
+// import axios from "axios";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -111,7 +114,8 @@ export default {
       blacktheme: false,
       modalauth: false,
       usermenu: false,
-      cartbar: false
+      cartbar: false,
+      search: null
     };
   },
   watch: {
@@ -139,6 +143,13 @@ export default {
         roleId: 1
       });
       this.$router.push("/");
+    },
+    searchinput() {
+      // axios.get("http://localhost:3012/search", {
+      //   params: {
+      //     text: this.search
+      //   }
+      // });
     }
   },
   computed: {

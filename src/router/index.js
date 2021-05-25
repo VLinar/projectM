@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import store from "../store/index";
+import jwt_decode from "jwt-decode";
 
 Vue.use(VueRouter);
 
@@ -39,9 +39,10 @@ export default new VueRouter({
             }
           ],
           beforeEnter: (to, from, next) => {
-            console.log(store.state.authuser.roleId);
+            let token = localStorage.getItem("token");
+            let role = jwt_decode(token).role;
             if (to.matched.some(record => record.meta.requiresAuth)) {
-              if (store.state.authuser.roleId === 2) {
+              if (role === 2 || role === 3) {
                 next();
               } else {
                 alert("Вы не авторизованы");
@@ -98,12 +99,32 @@ export default new VueRouter({
     {
       path: "/admin",
       name: "admin",
-      component: () => import("../views/admin.vue")
+      component: () => import("../views/admin.vue"),
+      beforeEnter: async (to, from, next) => {
+        let token = localStorage.getItem("token");
+        let role = jwt_decode(token).role;
+        if (role === 3) {
+          next();
+        } else {
+          next({
+            path: "/adminauth"
+          });
+        }
+      }
     },
     {
       path: "/adminauth",
       name: "adminauth",
-      component: () => import("../views/adminauth.vue")
+      component: () => import("../views/adminauth.vue"),
+      beforeEnter: (to, from, next) => {
+        let token = localStorage.getItem("token");
+        let role = jwt_decode(token).role;
+        if (role === 3) {
+          next("/admin");
+        } else {
+          next();
+        }
+      }
     },
     {
       path: "*",
@@ -113,3 +134,16 @@ export default new VueRouter({
   ],
   mode: "history"
 });
+
+// const getCookie = cookiname => {
+//   let matches = document.cookie.match(
+//     /* eslint-disable */
+//     new RegExp(
+//       `(?:^|; )${cookiname.replace(
+//         /([\.$?*|{}\(\)\[\]\\\/\+^])/g,
+//         "\\$1"
+//       )}=([^;]*)`
+//     )
+//   );
+//   return matches ? decodeURIComponent(matches[1]) : undefined;
+// };

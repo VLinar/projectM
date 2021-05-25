@@ -49,6 +49,7 @@ export default new Vuex.Store({
       state.authuser = value;
     },
     sendtoken(state, value) {
+      localStorage.setItem("token", value);
       state.token = value;
     },
     reg(state, value) {
@@ -119,6 +120,7 @@ export default new Vuex.Store({
         });
     },
     updaterefresh({ commit }, payload) {
+      console.log("payload", payload);
       axios
         .post("http://localhost:3012/refreshtoken", {
           refreshtoken: payload
@@ -287,6 +289,10 @@ export default new Vuex.Store({
         .get(`http://localhost:3012/productscount/${payload.groupid}`)
         .then(res => res.data.count)
         .catch(err => console.log(err));
+    },
+    cleanuserauth({ commit }) {
+      document.cookie = "refresh_token=1; max-age = -1";
+      commit("senduserauth", {});
     }
   },
   getters: {

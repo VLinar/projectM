@@ -1,9 +1,6 @@
 <template>
   <div class="container">
     <h2>История заказов</h2>
-    <!-- <pre
-      >{{ myorders }}
-    </pre> -->
     <div class="inf" v-for="order in myorders" :key="order.id">
       <div class="info">
         <p>Заказ №{{ order.number }}</p>
