@@ -17,8 +17,7 @@ export default {
       type: Object
     },
     deafaultimage: {
-      type: String,
-      default: "https://biolik.com.ua/wp-content/uploads/2019/12/NOFoto.png"
+      type: String
     }
   },
   components: {

@@ -1,85 +1,84 @@
 <template>
-  <header class="page-header">
-    <nav>
-      <a href="#0" aria-label="forecastr logo" class="logo">
-        <img
-          src="http://testdomainokey.000webhostapp.com/dipl/logo_1.png"
-          alt=""
-        />
-      </a>
-      <button
-        class="toggle-mob-menu"
-        aria-expanded="false"
-        aria-label="open menu"
-      >
-        <i class="fa fa-bars" aria-hidden="true"></i>
-      </button>
-      <ul class="admin-menu">
-        <li class="menu-heading">
-          <h3>Admin</h3>
-        </li>
-        <li>
-          <a href="#a">
-            <i class="fa fa-tasks" aria-hidden="true"></i>
-            <span> Товары</span>
-          </a>
-        </li>
-        <li>
-          <a href="#v">
-            <i class="fa fa-user" aria-hidden="true"></i>
-            <span> Пользователи</span>
-          </a>
-        </li>
-        <li>
-          <a href="#0">
-            <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-            <span>Заказы</span>
-          </a>
-        </li>
-        <li>
-          <a href="#0">
-            <i class="fa fa-magic" aria-hidden="true"></i>
-            <span>Атрибуты</span>
-          </a>
-        </li>
-        <li>
-          <a href="#0">
-            <i class="fa fa-server" aria-hidden="true"></i>
-            <span> Модификации</span>
-          </a>
-        </li>
-        <li>
-          <a href="#0">
-            <i class="fa fa-credit-card" aria-hidden="true"></i>
-            <span> Способы оплаты</span>
-          </a>
-        </li>
-        <li>
-          <a href="#0">
-            <i class="fa fa-paper-plane" aria-hidden="true"></i>
-            <span> Способы доставки</span>
-          </a>
-        </li>
-        <li>
-          <div class="switch">
-            <input type="checkbox" id="mode" checked />
-            <label for="mode">
-              <span></span>
-              <span class="llast">Dark</span>
-            </label>
-          </div>
-          <button
-            class="collapse-btn"
-            aria-expanded="true"
-            aria-label="collapse menu"
-          >
-            <i class="fa fa-arrow-left" aria-hidden="true"></i>
-            <span> Скрыть</span>
-          </button>
-        </li>
-      </ul>
-    </nav>
-  </header>
+  <div>
+    <header class="page-header">
+      <nav>
+        <a href="#0" aria-label="forecastr logo" class="logo">
+          <img
+            src="http://testdomainokey.000webhostapp.com/dipl/logo_1.png"
+            alt=""
+          />
+        </a>
+        <button
+          class="toggle-mob-menu"
+          aria-expanded="false"
+          aria-label="open menu"
+        >
+          <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+        <ul class="admin-menu">
+          <li class="menu-heading">
+            <h3>Admin</h3>
+          </li>
+          <li>
+            <router-link
+              to="/admin"
+              tag="span"
+              active-class="active"
+              exact
+              class="a"
+            >
+              <i class="fa fa-tasks" aria-hidden="true"></i>
+              <span>Товары</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              to="/admin/adminusers"
+              tag="span"
+              active-class="active"
+              exact
+              class="a"
+            >
+              <i class="fa fa-user" aria-hidden="true"></i>
+              <span>Пользователи</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              to="/admin/adminorders"
+              tag="span"
+              active-class="active"
+              exact
+              class="a"
+            >
+              <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+              <span>Заказы</span>
+            </router-link>
+          </li>
+          <li>
+            <div class="switch">
+              <input type="checkbox" id="mode" checked />
+              <label for="mode">
+                <span></span>
+                <span class="llast">Dark</span>
+              </label>
+            </div>
+            <button
+              class="collapse-btn"
+              aria-expanded="true"
+              aria-label="collapse menu"
+            >
+              <i class="fa fa-arrow-left" aria-hidden="true"></i>
+              <span> Скрыть</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <div>
+      <router-view />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -183,12 +182,13 @@ ul {
   list-style: none;
 }
 
-a,
+.a,
 button {
   color: inherit;
+  cursor: pointer;
 }
 
-a {
+.a {
   text-decoration: none;
 }
 
@@ -305,15 +305,15 @@ body {
   margin-right: 10px;
 }
 
-.page-header .admin-menu a,
+.page-header .admin-menu .a,
 .page-header .admin-menu button {
   display: flex;
   align-items: center;
   font-size: 0.9rem;
 }
 
-.page-header .admin-menu a:hover,
-.page-header .admin-menu a:focus,
+.page-header .admin-menu .a:hover,
+.page-header .admin-menu .a:focus,
 .page-header .admin-menu button:hover,
 .page-header .admin-menu button:focus {
   background: var(--page-header-bgColor-hover);
@@ -321,8 +321,8 @@ body {
   outline: none;
 }
 
-.page-header .admin-menu a:hover i,
-.page-header .admin-menu a:focus i,
+.page-header .admin-menu .a:hover i,
+.page-header .admin-menu .a:focus i,
 .page-header .admin-menu button:hover i,
 .page-header .admin-menu button:focus i {
   fill: var(--blue);
@@ -537,16 +537,16 @@ body {
   --box-shadow: 0 0 10px -2px rgba(0, 0, 0, 0.25);
 }
 
-.light-mode .page-header .admin-menu a:hover,
-.light-mode .page-header .admin-menu a:focus,
+.light-mode .page-header .admin-menu .a:hover,
+.light-mode .page-header .admin-menu .a:focus,
 .light-mode .page-header .admin-menu button:hover,
 .light-mode .page-header .admin-menu button:focus {
   color: var(--black);
 }
 
 .light-mode .page-header .logo i,
-.light-mode .page-header .admin-menu a:hover i,
-.light-mode .page-header .admin-menu a:focus i,
+.light-mode .page-header .admin-menu .a:hover i,
+.light-mode .page-header .admin-menu .a:focus i,
 .light-mode .page-header .admin-menu button:hover i,
 .light-mode .page-header .admin-menu button:focus i {
   fill: var(--black);

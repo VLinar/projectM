@@ -32,13 +32,28 @@
       <span @click="categorybar = !categorybar">
         <i class="fa fa-bars" aria-hidden="true"></i> Каталог</span
       >
-      <div class="search">
+      <div class="search" @mouseleave="searchresult = []">
         <input
           type="text"
           placeholder="Поиск"
           v-model="search"
           @input="searchinput"
         /><i class="fa fa-search" aria-hidden="true"></i>
+        <div v-if="searchresult.length > 0" class="searchresult">
+          <router-link
+            v-for="item in searchresult"
+            :key="item.id"
+            class="searchresult_item"
+            tag="div"
+            :to="`/product/${item.id}`"
+            @click.native="
+              searchresult = [];
+              search = '';
+            "
+          >
+            <h5>{{ item.name }}</h5>
+          </router-link>
+        </div>
       </div>
       <div class="icon_button">
         <i
@@ -104,7 +119,7 @@
 import Category from "@/components/categorybar.vue";
 import Cart from "@/components/cartbar";
 import Authmodal from "@/components/authmodal.vue";
-// import axios from "axios";
+import axios from "axios";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -115,7 +130,8 @@ export default {
       modalauth: false,
       usermenu: false,
       cartbar: false,
-      search: null
+      search: "",
+      searchresult: []
     };
   },
   watch: {
@@ -145,11 +161,19 @@ export default {
       this.$router.push("/");
     },
     searchinput() {
-      // axios.get("http://localhost:3012/search", {
-      //   params: {
-      //     text: this.search
-      //   }
-      // });
+      axios
+        .get("http://localhost:3012/search", {
+          params: {
+            text: this.search
+          }
+        })
+        .then(res => {
+          if (res.data.response.length < 1) {
+            this.searchresult = "ничего не найдено";
+          } else {
+            this.searchresult = res.data.response.splice(0, 5);
+          }
+        });
     }
   },
   computed: {
@@ -201,6 +225,8 @@ export default {
       padding: 10px;
       font-size: 14px;
       width: 100%;
+      box-sizing: border-box;
+
       &:focus {
         outline: none;
       }
@@ -208,9 +234,25 @@ export default {
     .fa {
       position: absolute;
       top: 9px;
-      right: -10px;
+      right: 10px;
       font-size: 20px;
       cursor: pointer;
+    }
+    .searchresult {
+      position: absolute;
+      z-index: 1;
+      // margin-top: 5px;
+      background: white;
+      width: -webkit-fill-available;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 8px 7px #00000024;
+      .searchresult_item {
+        cursor: pointer;
+        &:hover {
+          color: red;
+        }
+      }
     }
   }
 

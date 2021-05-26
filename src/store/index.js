@@ -290,6 +290,23 @@ export default new Vuex.Store({
         .then(res => res.data.count)
         .catch(err => console.log(err));
     },
+    getallproducts({ commit }, payload) {
+      axios
+        .get(`http://localhost:3012/products`, {
+          params: {
+            limit: payload.limit,
+            page: payload.pages
+          }
+        })
+        .then(res => {
+          commit("sendproducts", res.data.result);
+        })
+        .catch(err => console.log(err));
+      return axios
+        .get(`http://localhost:3012/productscount`)
+        .then(res => res.data.count)
+        .catch(err => console.log(err));
+    },
     cleanuserauth({ commit }) {
       document.cookie = "refresh_token=1; max-age = -1";
       commit("senduserauth", {});

@@ -1,25 +1,30 @@
 <template>
   <div class="container">
     <Spinner v-if="loading" />
-    <Breadcrumbs
-      :prod="oneproduct[0].groupId"
-      :prodname="oneproduct[0].name"
-      v-else
-    />
-    <Productheader
-      :image="oneproduct[0].images"
-      :productinfo="oneproduct[0]"
-      :deafaultimage="deafaultimage()"
-    />
-    <hr />
-    <Productfooter
-      :description="oneproduct[0].description"
-      :paramsvalue="oneproduct[0].paramsvalue"
-    />
-    <br />
-    <h2>Похожие товары</h2>
-    <div class="container">
-      <Newprod :limit="4" />
+    <div v-else>
+      <Breadcrumbs
+        :prod="oneproduct[0].groupId"
+        :prodname="oneproduct[0].name"
+      />
+      <Productheader
+        :image="oneproduct[0].images"
+        :productinfo="oneproduct[0]"
+        :deafaultimage="
+          deafaultimage() !== null
+            ? deafaultimage()
+            : 'https://biolik.com.ua/wp-content/uploads/2019/12/NOFoto.png'
+        "
+      />
+      <hr />
+      <Productfooter
+        :description="oneproduct[0].description"
+        :paramsvalue="oneproduct[0].paramsvalue"
+      />
+      <br />
+      <h2>Похожие товары</h2>
+      <div class="container">
+        <Newprod :limit="4" />
+      </div>
     </div>
   </div>
 </template>
@@ -59,7 +64,11 @@ export default {
   methods: {
     ...mapActions(["getoneproduct", "getgroups"]),
     deafaultimage() {
-      return this.oneproduct[0].images.find(e => e.default === true).url;
+      if (this.oneproduct[0].images.length < 1) {
+        return null;
+      } else {
+        return this.oneproduct[0].images.find(e => e.default === true).url;
+      }
     }
   }
 };

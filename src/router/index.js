@@ -100,7 +100,7 @@ export default new VueRouter({
       path: "/admin",
       name: "admin",
       component: () => import("../views/admin.vue"),
-      beforeEnter: async (to, from, next) => {
+      beforeEnter: (to, from, next) => {
         let token = localStorage.getItem("token");
         let role = jwt_decode(token).role;
         if (role === 3) {
@@ -110,7 +110,24 @@ export default new VueRouter({
             path: "/adminauth"
           });
         }
-      }
+      },
+      children: [
+        {
+          path: "",
+          name: "adminproducts",
+          component: () => import("../views/adminproducts")
+        },
+        {
+          path: "adminusers",
+          name: "adminusers",
+          component: () => import("../views/adminusers")
+        },
+        {
+          path: "adminorders",
+          name: "adminorders",
+          component: () => import("../views/adminorders")
+        }
+      ]
     },
     {
       path: "/adminauth",
@@ -119,8 +136,9 @@ export default new VueRouter({
       beforeEnter: (to, from, next) => {
         let token = localStorage.getItem("token");
         let role = jwt_decode(token).role;
+        console.log(role);
         if (role === 3) {
-          next("/admin");
+          next({ path: "/admin" });
         } else {
           next();
         }
