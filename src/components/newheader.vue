@@ -2,7 +2,7 @@
   <header class="container">
     <div class="header_first_rowmenu">
       <router-link
-        src="http://testdomainokey.000webhostapp.com/dipl/logo_1.png"
+        src="https://i.ibb.co/54rkzmm/logo-1.png"
         alt="Logo"
         width="150px"
         tag="img"
@@ -11,9 +11,6 @@
       </router-link>
 
       <div class="menu">
-        <router-link tag="a" active-class="active" to="/shares"
-          >Акции</router-link
-        >
         <router-link tag="a" active-class="active" to="/info" exact
           >О нас</router-link
         >
@@ -56,7 +53,7 @@
         </div>
       </div>
       <div class="icon_button">
-        <i
+        <!-- <i
           class="fa fa-sun-o"
           aria-hidden="true"
           v-if="blacktheme"
@@ -67,7 +64,7 @@
           aria-hidden="true"
           v-else
           @click="blacktheme = !blacktheme"
-        ></i>
+        ></i> -->
         <i
           class="fa fa-user-o"
           aria-hidden="true"

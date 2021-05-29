@@ -34,7 +34,7 @@
       @click="signin()"
       :disabled="$v.pass.minLength && !$v.login.$error ? false : true"
     />
-    <span>Забыли пароль?</span>
+    <!-- <span>Забыли пароль?</span> -->
   </form>
 </template>
 

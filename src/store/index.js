@@ -21,8 +21,12 @@ const getUserApiontoken = async token => {
 export default new Vuex.Store({
   state: {
     category: [],
+    users: [],
     products: [],
+    orders: [],
     oneproduct: {},
+    oneuser: {},
+    oneorder: {},
     authuser: {},
     basket: [],
     token: "",
@@ -39,8 +43,20 @@ export default new Vuex.Store({
     sendproducts(state, value) {
       state.products = value;
     },
+    sendorders(state, value) {
+      state.orders = value;
+    },
+    sendusers(state, value) {
+      state.users = value;
+    },
     sendproduct(state, value) {
       state.oneproduct = value;
+    },
+    senduser(state, value) {
+      state.oneuser = value;
+    },
+    sendorder(state, value) {
+      state.oneorder = value;
     },
     senduserauth(state, value) {
       state.authuser = value;
@@ -183,6 +199,30 @@ export default new Vuex.Store({
           return true;
         });
     },
+    getoneusers({ commit }, payload) {
+      return axios
+        .get(`http://localhost:3012/users/${payload}`)
+        .then(res => {
+          commit("senduser", res.data);
+          return false;
+        })
+        .catch(err => {
+          console.log(err);
+          return true;
+        });
+    },
+    getoneorders({ commit }, payload) {
+      return axios
+        .get(`http://localhost:3012/orders/${payload}`)
+        .then(res => {
+          commit("sendorder", res.data);
+          return false;
+        })
+        .catch(err => {
+          console.log(err);
+          return true;
+        });
+    },
     addproducttocart({ commit }, payload) {
       let maxvalue = 0;
       let newproductcart = this.state.cartproducts;
@@ -198,12 +238,12 @@ export default new Vuex.Store({
       } else {
         if (newproductcart.length > 0) {
           maxvalue = this.state.cartproducts.reduce((newvalue, currentvalue) =>
-            newvalue < currentvalue ? currentvalue : maxvalue
-          );
+            newvalue.id < currentvalue.id ? currentvalue : maxvalue
+          ).id;
         } else {
           maxvalue = 1;
         }
-        payload.id = maxvalue;
+        payload.id = maxvalue + 1;
         newproductcart.push(payload);
       }
 
@@ -304,6 +344,40 @@ export default new Vuex.Store({
         .catch(err => console.log(err));
       return axios
         .get(`http://localhost:3012/productscount`)
+        .then(res => res.data.count)
+        .catch(err => console.log(err));
+    },
+    getallorders({ commit }, payload) {
+      axios
+        .get(`http://localhost:3012/orders`, {
+          params: {
+            limit: payload.limit,
+            page: payload.pages
+          }
+        })
+        .then(res => {
+          commit("sendorders", res.data.response);
+        })
+        .catch(err => console.log(err));
+      return axios
+        .get(`http://localhost:3012/orderscount`)
+        .then(res => res.data.count)
+        .catch(err => console.log(err));
+    },
+    getalluser({ commit }, payload) {
+      axios
+        .get(`http://localhost:3012/users`, {
+          params: {
+            limit: payload.limit,
+            page: payload.pages
+          }
+        })
+        .then(res => {
+          commit("sendusers", res.data);
+        })
+        .catch(err => console.log(err));
+      return axios
+        .get(`http://localhost:3012/userscount`)
         .then(res => res.data.count)
         .catch(err => console.log(err));
     },
