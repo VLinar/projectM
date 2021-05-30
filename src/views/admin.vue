@@ -53,7 +53,7 @@
             </router-link>
           </li>
           <li>
-            <!-- <div class="switch">
+            <div class="switch">
               <input type="checkbox" id="mode" checked />
               <label for="mode">
                 <span></span>
@@ -67,7 +67,7 @@
             >
               <i class="fa fa-arrow-left" aria-hidden="true"></i>
               <span> Скрыть</span>
-            </button> -->
+            </button>
           </li>
         </ul>
       </nav>

@@ -6,10 +6,9 @@
         <label for="firstname">Имя</label>
       </div>
       <div class="group">
-        <input type="text" id="lastname"  v-model="lastname"/>
+        <input type="text" id="lastname" v-model="lastname" />
         <label for="lastname">Фамилия</label>
       </div>
-       
       <div class="group">
         <input type="text" id="email" v-model="email" />
         <label for="email">Почта</label>
@@ -106,8 +105,7 @@ export default {
       );
       return matches ? decodeURIComponent(matches[1]) : undefined;
     }
-  },
-  
+  }
 };
 </script>
 

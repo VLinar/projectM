@@ -21,7 +21,7 @@
         <label>Цена</label><br />
         <input type="text" id="price" v-model="price" /><br />
         <label>Описание</label><br />
-        <textarea id="description" v-model="description" /><br />
+        <input type="text" id="description" v-model="description" /><br />
         <label>Количество</label><br />
         <input type="text" id="amount" v-model="amount" /><br />
         <hr />
@@ -137,7 +137,7 @@ export default {
           });
         })
         .catch(err => console.log(err));
-    },
+    }
   }
 };
 </script>
@@ -194,16 +194,6 @@ export default {
         border-bottom: 1px solid;
         margin-bottom: 29px;
         margin-top: 5px;
-      }
-      textarea {
-        padding: 7px 12px;
-        width: 345px;
-        height: 70px;
-        border: none;
-        border-bottom: 1px solid;
-        margin-bottom: 29px;
-        margin-top: 5px;
-         resize: none;
       }
       select {
         margin-bottom: 19px;

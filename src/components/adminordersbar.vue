@@ -23,11 +23,6 @@
       <div class="adminorders_product">
         <label>Номер</label><br />
         <input type="text" id="fullname" v-model="number" /><br />
-        <label>Статус</label><br />
-        <select v-model="status">
-          <option v-for='item in statuses' :key="item.id" :value="item.id">{{item.name}}</option>
-        </select>
-        <br />
         <label>Дата</label><br />
         <input type="text" id="price" v-model="date" /><br />
         <label>Сумма</label><br />
@@ -38,9 +33,9 @@
         <input type="text" id="email" v-model="phone_contact_inform_id" /><br />
         <label>Email</label><br />
         <input type="text" id="pass" v-model="email_contact_inform_id" /><br />
-        <!-- <i id="trash" class="fa fa-trash" aria-hidden="true" @click="delorders"
+        <i id="trash" class="fa fa-trash" aria-hidden="true" @click="delorders"
           ><label class="trash"> Удалить</label></i
-        > -->
+        >
       </div>
     </div>
   </div>
@@ -63,8 +58,7 @@ export default {
       sum: "",
       delivery_address: "",
       phone_contact_inform_id: "",
-      email_contact_inform_id: "",
-      status: ''
+      email_contact_inform_id: ""
     };
   },
   created() {
@@ -75,7 +69,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["oneorder",'statuses'])
+    ...mapState(["oneorder"])
   },
   methods: {
     ...mapActions(["getoneorders"]),
@@ -84,7 +78,6 @@ export default {
       this.date = this.oneorder.date;
       this.sum = this.oneorder.sum;
       this.delivery_address = this.oneorder.delivery_address;
-      this.status = this.oneorder.status.id
       this.phone_contact_inform_id = this.oneorder.phone_contact_inform_id;
       this.email_contact_inform_id = this.oneorder.email_contact_inform_id;
     },
@@ -100,8 +93,8 @@ export default {
             email_contact_inform_id: this.email_contact_inform_id,
             deliveryId: 1,
             paymentId: 1,
-            
-            statusId: this.status
+            userId: 1,
+            statusId: 1
           })
           .then(() => {
             this.$emit("closeadminordersbar", {
@@ -123,7 +116,7 @@ export default {
             deliveryId: 1,
             paymentId: 1,
             userId: 1,
-            statusId:  this.status
+            statusId: 1
           })
           .then(res => {
             this.$emit("closeadminordersbar", {

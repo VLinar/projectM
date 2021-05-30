@@ -34,8 +34,7 @@ export default new Vuex.Store({
     payments: [],
     delivery: [],
     maxnumbername: 0,
-    myorders: [],
-    statuses:[]
+    myorders: []
   },
   mutations: {
     sendgroups(state, value) {
@@ -89,9 +88,6 @@ export default new Vuex.Store({
     },
     getmyorders(state, value) {
       state.myorders = value;
-    },
-    setStatuses(state, value){
-      state.statuses = value
     }
   },
   actions: {
@@ -388,13 +384,6 @@ export default new Vuex.Store({
     cleanuserauth({ commit }) {
       document.cookie = "refresh_token=1; max-age = -1";
       commit("senduserauth", {});
-    },
-    getstatuses({commit}){
-      
-      axios.get('http://localhost:3012/statuses').then(res => {
-        commit('setStatuses', res.data.response)
-      }).catch(err => console.log(err))
-
     }
   },
   getters: {

@@ -15,7 +15,7 @@
             :key="product.id"
           >
             <div class="name">
-              <label for="">{{ product.name }}</label>
+              <label for="">{{ product.product.name }}</label>
               <label for="">{{ product.price }} руб.</label>
               <label for="">Количество: {{ product.amounts }} шт.</label>
             </div>
