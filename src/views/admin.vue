@@ -3,10 +3,7 @@
     <header class="page-header">
       <nav>
         <a href="#0" aria-label="forecastr logo" class="logo">
-          <img
-            src="http://testdomainokey.000webhostapp.com/dipl/logo_1.png"
-            alt=""
-          />
+          <img src="https://i.ibb.co/54rkzmm/logo-1.png" alt="" />
         </a>
         <button
           class="toggle-mob-menu"
