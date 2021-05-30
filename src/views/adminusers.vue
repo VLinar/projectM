@@ -1,6 +1,7 @@
 <template>
   <section id="a" class="page-content">
     <div class="cdcd">
+      <h2>Пользователи</h2>
       <button
         class="btn"
         aria-expanded="true"

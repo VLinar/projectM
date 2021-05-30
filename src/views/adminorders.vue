@@ -1,6 +1,7 @@
 <template>
   <section id="a" class="page-content">
     <div class="cdcd">
+      <h2>Заказы</h2>
       <button
         class="btn"
         aria-expanded="true"
@@ -10,6 +11,7 @@
         <span>Добавить товар</span>
       </button>
     </div>
+    
     <table class="table">
       <thead>
         <tr>
@@ -18,9 +20,10 @@
           <th>Дата</th>
           <th>Сумма</th>
           <th>Адрес</th>
+          <th>Статус заказа</th>
           <th>Телефон</th>
           <th>Email</th>
-          <th>Удалить</th>
+          <!-- <th>Удалить</th> -->
         </tr>
       </thead>
       <tbody>
@@ -37,9 +40,10 @@
           <td>{{ item.date }}</td>
           <td>{{ item.sum }}</td>
           <td>{{ item.delivery_address }}</td>
+          <td>{{ item.status.name }}</td>
           <td>{{ item.phone_contact_inform_id }}</td>
           <td>{{ item.email_contact_inform_id }}</td>
-          <td @click="delorders(item.id)">
+          <!-- <td @click="delorders(item.id)">
             <button
               class="collapse-btn"
               aria-expanded="true"
@@ -47,7 +51,7 @@
             >
               <i class="fa fa-trash" aria-hidden="true"></i>
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
