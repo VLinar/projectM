@@ -1,12 +1,7 @@
 <template>
   <section id="a" class="page-content">
     <div class="cdcd">
-      <button
-        class="btn"
-        aria-expanded="true"
-        aria-label="collapse menu"
-        @click="openbar"
-      >
+      <button class="btn" aria-expanded="true" aria-label="collapse menu">
         <span>Добавить товар</span>
       </button>
     </div>
@@ -24,22 +19,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="product_item" v-for="item in orders" :key="item.id">
+        <tr>
           <td><input type="checkbox" name="" id="" /></td>
-          <router-link
-            tag="td"
-            :to="`?orderid=${item.id}`"
-            @click.native="adminordersbar = !adminordersbar"
-            class="name"
-          >
-            {{ item.number }}
-          </router-link>
-          <td>{{ item.date }}</td>
-          <td>{{ item.sum }}</td>
-          <td>{{ item.delivery_address }}</td>
-          <td>{{ item.phone_contact_inform_id }}</td>
-          <td>{{ item.email_contact_inform_id }}</td>
-          <td @click="delorders(item.id)">
+          <td class="name" @click="adminordersbar = !adminordersbar">2</td>
+          <td>2012</td>
+          <td>200 р.</td>
+          <td>Пушкина</td>
+          <td>8800565656</td>
+          <td>@mail.ru</td>
+          <td>
             <button
               class="collapse-btn"
               aria-expanded="true"
@@ -54,83 +42,22 @@
     <transition name="category">
       <Ordersbar
         v-if="adminordersbar"
-        @closeadminordersbar="closebar($event)"
-        :addmode="addmode"
+        @closeadminordersbar="adminordersbar = !adminordersbar"
       />
     </transition>
-    <pagination
-      v-model="page"
-      :per-page="limit"
-      :records="records"
-      @paginate="myCallback"
-    />
   </section>
 </template>
 
 <script>
-import axios from "axios";
-import Pagination from "vue-pagination-2";
 import Ordersbar from "@/components/adminordersbar";
-import { mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
-      adminordersbar: false,
-      page: 1,
-      limit: 16,
-      records: 0,
-      addmode: false
+      adminordersbar: false
     };
   },
-  created() {
-    this.order();
-  },
-  watch: {
-    async page(newvalue) {
-      this.records = await this.getallorders({
-        limit: this.limit,
-        pages: newvalue
-      });
-    }
-  },
-  computed: {
-    ...mapState(["orders"])
-  },
   components: {
-    Ordersbar,
-    Pagination
-  },
-  methods: {
-    ...mapActions(["getallorders"]),
-    async order() {
-      this.records = await this.getallorders({
-        limit: this.limit,
-        pages: this.page
-      });
-    },
-    myCallback(page) {
-      this.page = page;
-    },
-    openbar() {
-      this.$router.push("?");
-      this.addmode = true;
-      this.adminordersbar = true;
-    },
-    closebar(event) {
-      this.adminordersbar = event.adminordersbar;
-      this.addmode = event.addmode;
-      if (event.reload) {
-        this.order();
-      }
-    },
-    delorders(id) {
-      axios
-        .delete(`http://localhost:3012/orders/${id}`)
-        .then(() => {
-          this.order();
-        })
-        .catch(err => console.log(err));
-    }
+    Ordersbar
   }
 };
 </script>
@@ -140,17 +67,6 @@ export default {
   width: 100%;
   border: none;
   margin-bottom: 20px;
-  .product_item {
-    cursor: pointer;
-    &:hover {
-      background: rgba(82, 81, 81, 0.13);
-    }
-  }
-  .name {
-    &:hover {
-      color: red;
-    }
-  }
 }
 .table thead th {
   font-weight: bold;
@@ -202,7 +118,12 @@ export default {
   border: none;
   cursor: pointer;
 }
-
+.name {
+  cursor: pointer;
+}
+.name:hover {
+  color: red;
+}
 input[type="checkbox"] {
   cursor: pointer;
 }

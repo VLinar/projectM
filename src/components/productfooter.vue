@@ -5,7 +5,7 @@
         @click="showswitch = !showswitch"
         :class="!showswitch ? 'active' : ''"
       >
-        Информация о товаре
+        Инфорация о товаре
       </h4>
       <h4 @click="showswitch = !showswitch" :class="showswitch ? 'active' : ''">
         Характеристики

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Slider from "@/components/Slider.vue";
+import Slider from "@/components/slider.vue";
 import Slogan from "@/components/slogan.vue";
 import Newprod from "@/components/productsgrid.vue";
 

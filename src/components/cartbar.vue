@@ -15,7 +15,7 @@
             @click.native="$emit('closecartbar')"
             >Оформить заказ</router-link
           >
-          
+          <button>Перейти в корзину</button>
         </div>
       </div>
       <div class="cart_product">
@@ -87,11 +87,10 @@ export default {
   width: auto;
   z-index: 1;
   .cartbar {
-    overflow-y: scroll;
     background: white;
     height: 100vh;
     width: auto;
-    
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -120,7 +119,6 @@ export default {
           border: 1px solid white;
           padding: 10px 30px;
           cursor: pointer;
-          width: 350px;
           &:hover {
             border: 1px solid red;
             background: white;

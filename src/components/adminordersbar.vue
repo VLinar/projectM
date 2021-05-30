@@ -5,35 +5,33 @@
       <i
         id="clos"
         class="fa fa-close fa-2x"
-        @click="
-          $emit('closeadminordersbar', {
-            adminordersbar: false,
-            addmode: false
-          })
-        "
+        @click="$emit('closeadminordersbar')"
       >
       </i>
       <div class="adminorders_header">
         <div class="adminorders_button_group">
-          <button @click="saveorders">
-            Сохранить
-          </button>
+          <router-link
+            to="/admin/adminorders"
+            tag="button"
+            @click.native="$emit('closeadminordersbar')"
+            >Сохранить</router-link
+          >
         </div>
       </div>
       <div class="adminorders_product">
         <label>Номер</label><br />
-        <input type="text" id="fullname" v-model="number" /><br />
+        <input type="text" id="fullname" v-model="name" /><br />
         <label>Дата</label><br />
-        <input type="text" id="price" v-model="date" /><br />
+        <input type="text" id="price" v-model="name" /><br />
         <label>Сумма</label><br />
-        <input type="text" id="address" v-model="sum" /><br />
+        <input type="text" id="address" v-model="name" /><br />
         <label>Адрес</label><br />
-        <input type="text" id="phone" v-model="delivery_address" /><br />
+        <input type="text" id="phone" v-model="name" /><br />
         <label>Телефон</label><br />
-        <input type="text" id="email" v-model="phone_contact_inform_id" /><br />
+        <input type="text" id="email" v-model="name" /><br />
         <label>Email</label><br />
-        <input type="text" id="pass" v-model="email_contact_inform_id" /><br />
-        <i id="trash" class="fa fa-trash" aria-hidden="true" @click="delorders"
+        <input type="text" id="pass" v-model="name" /><br />
+        <i id="trash" class="fa fa-trash" aria-hidden="true"
           ><label class="trash"> Удалить</label></i
         >
       </div>
@@ -41,109 +39,7 @@
   </div>
 </template>
 
-<script>
-import { mapActions, mapState } from "vuex";
-import axios from "axios";
-export default {
-  props: {
-    addmode: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data() {
-    return {
-      number: "",
-      date: "",
-      sum: "",
-      delivery_address: "",
-      phone_contact_inform_id: "",
-      email_contact_inform_id: ""
-    };
-  },
-  created() {
-    if (!this.$props.addmode) {
-      this.getoneorders(this.$route.query.orderid).then(() => {
-        this.setinitialvalue();
-      });
-    }
-  },
-  computed: {
-    ...mapState(["oneorder"])
-  },
-  methods: {
-    ...mapActions(["getoneorders"]),
-    setinitialvalue() {
-      this.number = this.oneorder.number;
-      this.date = this.oneorder.date;
-      this.sum = this.oneorder.sum;
-      this.delivery_address = this.oneorder.delivery_address;
-      this.phone_contact_inform_id = this.oneorder.phone_contact_inform_id;
-      this.email_contact_inform_id = this.oneorder.email_contact_inform_id;
-    },
-    saveorders() {
-      if (this.$route.query.orderid) {
-        axios
-          .put(`http://localhost:3012/orders/${this.$route.query.orderid}`, {
-            number: this.number,
-            date: this.date,
-            sum: this.sum,
-            delivery_address: this.delivery_address,
-            phone_contact_inform_id: this.phone_contact_inform_id,
-            email_contact_inform_id: this.email_contact_inform_id,
-            deliveryId: 1,
-            paymentId: 1,
-            userId: 1,
-            statusId: 1
-          })
-          .then(() => {
-            this.$emit("closeadminordersbar", {
-              adminordersbar: true,
-              addmode: false,
-              reload: true
-            });
-          })
-          .catch(err => console.log(err));
-      } else {
-        axios
-          .post("http://localhost:3012/orders", {
-            number: this.number,
-            date: this.date,
-            sum: this.sum,
-            delivery_address: this.delivery_address,
-            phone_contact_inform_id: this.phone_contact_inform_id,
-            email_contact_inform_id: this.email_contact_inform_id,
-            deliveryId: 1,
-            paymentId: 1,
-            userId: 1,
-            statusId: 1
-          })
-          .then(res => {
-            this.$emit("closeadminordersbar", {
-              adminordersbar: true,
-              addmode: false,
-              reload: true
-            });
-            this.$router.push(`?orderid=${res.data.id}`);
-          })
-          .catch(err => console.log(err));
-      }
-    },
-    delorders() {
-      axios
-        .delete(`http://localhost:3012/orders/${this.$route.query.orderid}`)
-        .then(() => {
-          this.$emit("closeadminordersbar", {
-            adminbar: false,
-            addmode: false,
-            reload: true
-          });
-        })
-        .catch(err => console.log(err));
-    }
-  }
-};
-</script>
+<script></script>
 
 <style lang="scss" scoped>
 .rightbar {

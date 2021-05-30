@@ -22,17 +22,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          
+        <router-link
+          tag="tr"
+          @click.native="adminbar = !adminbar"
           class="product_item"
           v-for="item in products"
           :key="item.id"
-          
+          :to="`?productid=${item.id}`"
         >
           <td><input type="checkbox" name="" id="" /></td>
-          <router-link tag='td' :to="`?productid=${item.id}`" @click.native="adminbar = !adminbar" class="name">
-            
-            {{ item.name }}</router-link>
+          <td class="name">{{ item.name }}</td>
           <td>{{ item.price }}</td>
           <td>{{ item.description }}</td>
           <td>{{ item.amount }}</td>
@@ -45,7 +44,7 @@
               <i class="fa fa-trash" aria-hidden="true"></i>
             </button>
           </td>
-        </tr>
+        </router-link>
       </tbody>
     </table>
     <transition name="category">
@@ -142,11 +141,6 @@ export default {
     cursor: pointer;
     &:hover {
       background: rgba(82, 81, 81, 0.13);
-    }
-  }
-  .name{
-    &:hover{
-      color:red
     }
   }
 }

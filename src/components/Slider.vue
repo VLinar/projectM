@@ -3,7 +3,7 @@
     <VueSlickCarousel v-bind="settings" ref="corusel">
       <div v-for="(data, i) in img" :key="i" class="slide-img">
         <img :src="data" alt="" />
-        <router-link class="slider_button" to="/categories/flower" tag="div"
+        <router-link class="slider_button" to="/shop" tag="div"
           >Магазин</router-link
         >
       </div>
@@ -21,11 +21,11 @@ export default {
   data() {
     return {
       img: [
-        "https://i.ibb.co/q0FP5Cm/i.jpg",
-        "https://i.ibb.co/J219Xtd/devushka-ulybka-cvety-buket.jpg",
-        "https://i.ibb.co/Mf2NYqG/devushka-makiyazh-vzglyad-ulybka-3121.jpg",
-        "https://i.ibb.co/YWKPRj1/img-20150311195429-660.jpg"
-        // "https://www.bykov-foto.ru/uploads/gallery/p2/fotografii-svadebnyh-buketov-01.jpg"
+        "https://i.mycdn.me/i?r=AzEPZsRbOZEKgBhR0XGMT1RkgSdfw5YnzFmdY-0VQso2K6aKTM5SRkZCeTgDn6uOyic",
+        "https://img3.goodfon.ru/wallpaper/nbig/e/7d/devushka-ulybka-cvety-buket.jpg",
+        "https://img1.goodfon.ru/wallpaper/nbig/9/4a/devushka-makiyazh-vzglyad-ulybka-3121.jpg",
+        "https://pg21.ru/userfiles/picitem/img-20150311195429-660.jpg",
+        "https://www.bykov-foto.ru/uploads/gallery/p2/fotografii-svadebnyh-buketov-01.jpg"
       ],
       settings: {
         dots: true,

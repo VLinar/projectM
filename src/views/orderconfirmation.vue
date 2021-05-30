@@ -6,7 +6,7 @@
     <label for="">{{ dateformat(new Date(order.date)) }}</label>
     <hr />
     <h4>Статус платежа: Ожидается оплата</h4>
-    <label for="">Итого {{ order.sum }} руб.</label>
+    <label for="">Итого 6500р.</label>
     <hr />
     <h4>Доставим по адресу</h4>
     <label for="">{{ order.delivery_address }}</label>
@@ -18,11 +18,9 @@
       <div class="prod" v-for="prod in product" :key="prod.id">
         <div class="name">
           <label for="">{{ prod.product.name }}</label>
-          <label for="">{{ prod.amounts }} шт.</label>
-          <label for="">{{ prod.price }} руб.</label>
-        </div>           
+          <label for="">{{ prod.amounts }}</label>
+        </div>
       </div>
-       <label class="itog" for=""><b>Итого</b>{{ order.sum }} руб.</label>
     </div>
     <router-link tag="button" to="/">Продолжить покупки</router-link>
   </div>
@@ -100,9 +98,7 @@ export default {
       }
     }
   }
-  .itog{
-    right: 0;
-  }
+
   button {
     position: relative;
     left: 50%;

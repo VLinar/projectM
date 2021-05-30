@@ -86,7 +86,7 @@ export default {
     saveproduct() {
       if (this.$route.query.productid) {
         axios
-          .put(
+          .post(
             `http://localhost:3012/product/${this.$route.query.productid}`,
             {
               name: this.name,

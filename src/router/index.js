@@ -61,11 +61,6 @@ export default new VueRouter({
           component: () => import("../views/info"),
           children: [
             {
-              path: "",
-              name: "inf",
-              component: () => import("../views/inf")
-            },
-            {
               path: "payment",
               name: "payment",
               component: () => import("../views/payment")

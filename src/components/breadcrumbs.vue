@@ -18,7 +18,7 @@
       </router-link>
     </div>
 
-    <!-- <div v-if="!prod">3 иконки</div> -->
+    <div v-if="!prod">3 иконки</div>
   </div>
 </template>
 

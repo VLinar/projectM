@@ -26,7 +26,6 @@ export default {
         password: "0000",
         roleId: 1
       });
-      this.$router.push("/");
     }
   }
 };
